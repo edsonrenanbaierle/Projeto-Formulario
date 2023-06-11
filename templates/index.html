@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/index.css">
+    <title>Comida de Rua</title>
+</head>
+<body>
+    <header>
+        <h1>Comida de Rua</h1>
+    </header>
+    <main>
+        <section>
+            <form action="#">
+                <label for="name">Nome Completo: </label>
+                <input type="text" required id="name" name="name">
+                <label for="order">Pedido:</label>
+                <select name="order" id="order">
+                    <option value="Opção 1">Opção 1</option>
+                    <option value="Opção 2">Opção 2</option>
+                    <option value="Opção 3">Opção 3</option>
+                </select>
+                <label for="hour">Horário de busca:</label>
+                <input type="text" id="hour" name="hour" placeholder="HH:MM" required>
+                <button type="submit">Gerar Pagamento</button>
+            </form>
+        </section>
+    </main>
+</body>
+</html>
