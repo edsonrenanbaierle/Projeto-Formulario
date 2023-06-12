@@ -59,3 +59,44 @@ button {
 button:hover {
   background-color: #45a049;
 }
+
+/* .methods_payment {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.methods_payment i:first-child {
+  margin-right: 20px;
+} */
+
+.methods_payment {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.methods_payment button:first-child{
+  margin-right: 15px;
+}
+.methods_payment i {
+  margin-bottom: 10px;
+}
+.payments {
+  display: flex;
+  justify-content: center;
+  color: #ccc;
+  font-size: 14px;
+}
+.payments button {
+  background-color: transparent;
+  color: black;
+}
+.payments button:hover {
+  filter: drop-shadow(2px 2px 2px #4caf4f7e);
+}
+
+.select {
+  color: #45a049!important;
+}
