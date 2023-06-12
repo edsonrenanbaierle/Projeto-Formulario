@@ -6,26 +6,35 @@
     <link rel="stylesheet" href="../static/index.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="https://kit.fontawesome.com/5beb01dd07.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
+        
 
     <title>Comida de Rua</title>
 </head>
 <body>
-    <header>
-        <h1>Comida de Rua</h1>
-    </header>
+        <nav class="navbar bg-dark border-bottom border-bottom-dark shadow">
+            <div class="container d-flex justify-content-center">
+                <img src="../static/image-removebg-preview (9).png" width="300">
+            </div>
+        </nav>
+        <embed src="../static/shawarma-animate.svg" type="" class="background_food" >
+
     <main>
-        <section>
+        <section class="shadow">
             <form action="/concluirPagamento" method="POST">
-                <label for="name">Nome Completo: </label>
-                <input type="text" required id="name" name="name">
+                <div class="form-floating">
+                    <input type="text" class="form-control rounded" required id="name" name="name" placeholder="teste">
+                    <label for="name">Nome Completo</label>
+                </div>
                 <label for="order">Pedido:</label>
-                <select name="order" id="order">
+                <select name="order" id="order" class="form-select rounded">
                     {% for item in dados %}
                     <option value="{{item.value}}">{{item.key}}</option>
                     {% endfor %}
                 </select>
                 <label for="hour">Horário de busca:</label>
-                <input type="time" id="hour" name="hour" placeholder="HH:MM" required>
+                <input type="time" id="hour" name="hour" class="form-control rounded" placeholder="HH:MM" required>
                         <div class="payments">
                             <button type="button" class="methods_payment select" id="credit" onclick="selectPayment(event, 'Crédito')">
                                 <i class="fas fa-credit-card"></i> <span>Crédito</span>
@@ -34,55 +43,21 @@
                                 <i class="fab fa-pix"></i> <span>Pix</span>
                             </button>
                     </div>
-                <input type="hidden" id="payment_method_input" name="payment_method" value="">
-                <button type="submit">Gerar Pagamento</button>
+                <input type="hidden" id="payment_method_input" name="payment_method" value="Crédito">
+                <button type="submit" class="btn btn-success">Gerar Pagamento</button>
             </form>
         </section>
     </main>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            
-            // Obter o formulário
-            var form = document.querySelector('form');
+        function reset() {
+        var form = document.querySelector('form');
+        form.reset();
+        }
 
-            // Adicionar um evento de envio ao formulário
-            form.addEventListener('submit', function(e) {
-                // Impedir o envio padrão do formulário
-                e.preventDefault();
-
-                // Criar um objeto FormData para enviar o formulário
-                var formData = new FormData(form);
-
-                // Fazer uma solicitação AJAX para enviar o formulário
-                var xhr = new XMLHttpRequest();
-                xhr.open(form.method, form.action, true);
-                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-                xhr.onload = function() {
-                    if (xhr.status === 200) {
-                        // Analisar a resposta JSON
-                        // console.log(xhr)
-                        var response = JSON.parse(xhr.responseText);
-                        // console.log(response[0].name)
-                        console.log(response.name)
-                        // Obter os valores do objeto JSON
-                        var name = response.name;
-                        var order = response.order;
-                        var hour = response.hour;
-                        var payment_method = response.payment_method
-
-                        // Exibir o toast com a mensagem de confirmação
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Pedido realizado com sucesso!',
-                            html: 'Nome: ' + name + '<br> Pedido: ' + order + '<br> Horário: ' + hour + '<br> Pagamento: ' + payment_method,
-                            showCloseButton: true,
-                        });
-
-                        form.reset()
-                    }
-                };
-                xhr.send(formData);
-            });
+        window.addEventListener('pageshow', function(event) {
+        if (event.persisted) {
+            reset();
+        }
         });
         function selectPayment(event, paymentMethod) {
             console.log(paymentMethod);
@@ -100,8 +75,6 @@
             const paymentMethodField = document.getElementById('payment_method_input');
             paymentMethodField.value = paymentMethod;
         }
-
-
 
     </script>
 </body>

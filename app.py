@@ -52,8 +52,6 @@ def processar_pagamento():
         'payment_method': payment_method
     }
 
-    jsonify(valor)
-    
     qr_code_data = processar_pagamento_api(name, order, hour)
 
     return render_template('pagamentoFinalizado.html', qr_code_data=qr_code_data, valor=valor)

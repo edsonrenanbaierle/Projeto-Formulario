@@ -4,17 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
     <title>Comida de Rua - Gerar Pagamento</title>
 </head>
 <body>
-    <header>
-        <h1>Comida de Rua</h1>
-    </header>
+    <nav class="navbar bg-dark border-bottom border-bottom-dark shadow">
+        <div class="container d-flex justify-content-center">
+            <img src="../static/image-removebg-preview (9).png" width="300">
+        </div>
+    </nav>
+    <embed src="../static/shawarma-animate.svg" type="" class="background_food" >
+
     <main>
-        <section>
+        <section class="shadow">
             <h2>Por favor, realize o pagamento:</h2>
-            <img src="{{qr_code_data}}" alt="QR Code">
+            <div class="qr_code">
+                <img src="{{qr_code_data}}" alt="QR Code">
+            </div>
         </section>
     </main>
 </body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+            
+        var valor = {
+            name: '{{ valor.name }}',
+            order: '{{ valor.order }}',
+            hour: '{{ valor.hour }}',
+            payment_method: '{{ valor.payment_method }}'
+        };
+
+        Swal.fire({
+            icon: 'success',
+            title: 'Pedido realizado com sucesso!',
+            html: 'Nome: ' +  valor.name  + '<br> Pedido: ' + valor.order  + '<br> Horário: ' + valor.hour + '<br> Pagamento: ' + valor.payment_method ,
+            showCloseButton: true,
+        });
+
+    });
+
+</script>
 </html>

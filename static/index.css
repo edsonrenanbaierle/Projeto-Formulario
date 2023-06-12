@@ -1,4 +1,6 @@
-
+*, hmtl{
+  box-sizing: border-box;
+}
 body {
   font-family: Arial, sans-serif;
   background-color: #f2f2f2;
@@ -20,8 +22,7 @@ h1 {
 main {
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100vh;
+  margin-top: 10rem;
 }
 
 section {
@@ -60,16 +61,6 @@ button:hover {
   background-color: #45a049;
 }
 
-/* .methods_payment {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 10px;
-}
-
-.methods_payment i:first-child {
-  margin-right: 20px;
-} */
-
 .methods_payment {
   display: flex;
   flex-direction: column;
@@ -98,5 +89,32 @@ button:hover {
 }
 
 .select {
-  color: #45a049!important;
+  color: #3F7447!important;
+}
+
+.qr_code {
+  display: flex;
+  justify-content: center;
+}
+
+.swiper-container {
+  width: 600px;
+  height: 400px;
+}
+.swiper-slide {
+  text-align: center;
+  font-size: 30px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.background_food {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  filter: blur(8px);
+  z-index: -2;
 }
