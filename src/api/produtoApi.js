@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = process.env.API_URL; // Change this URL to match your server URL
+const baseUrl = process.env.VUE_APP_BASE_API; // Change this URL to match your server URL
 
 // Function to fetch all products
 export function buscarProdutos() {
