@@ -66,7 +66,7 @@ Vue.prototype.$products_controller = new Vue({
         .then((res) => {
           this.openModal = false;
           this.loading_btn = false;
-          this.$toast.success("Produto Adicionado com Sucesso!");
+          this.$toast.success("Produto adicionado com sucesso!");
           this.clearAllFields();
           this.getAllProducts();
         })
@@ -89,7 +89,7 @@ Vue.prototype.$products_controller = new Vue({
           this.loading_btn = false;
           this.clearAllFields();
           this.getAllProducts();
-          this.$toast.success("Produto Alterado com Sucesso!");
+          this.$toast.success("Produto alterado com sucesso!");
         })
         .catch(() => {
           this.loading_btn = false;
@@ -103,7 +103,7 @@ Vue.prototype.$products_controller = new Vue({
           this.loading_btn = false;
           this.openDelete = false;
           this.getAllProducts();
-          this.$toast.success("Produto Removido com Sucesso!");
+          this.$toast.success("Produto removido com sucesso!");
         })
         .catch(() => {
           this.loading_btn = false;

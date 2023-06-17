@@ -97,6 +97,11 @@ export default {
   components: {
     moneyInput,
   },
+  watch: {
+    "$products_controller.openModal"() {
+      this.$refs.form.resetValidation();
+    },
+  },
   methods: {
     closeModal() {
       this.$products_controller.clearAllFields();

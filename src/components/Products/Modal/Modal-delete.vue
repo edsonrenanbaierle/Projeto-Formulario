@@ -1,5 +1,9 @@
 <template>
-  <v-dialog v-model="$products_controller.openDelete" max-width="500px">
+  <v-dialog
+    v-model="$products_controller.openDelete"
+    max-width="500px"
+    persistent
+  >
     <v-card class="rounded-xl p-5">
       <v-card-title class="headline">{{ title }}</v-card-title>
       <v-card-text>{{ message }}</v-card-text>
