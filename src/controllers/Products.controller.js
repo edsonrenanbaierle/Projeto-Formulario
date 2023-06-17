@@ -13,9 +13,12 @@ Vue.prototype.$products_controller = new Vue({
   data() {
     return {
       openModal: false,
+      openDelete: false,
       loading_table: false,
+      nome_produto: "",
       loading_btn: false,
       newOrEdit: "",
+      produto_id: "",
       all_products: [],
       categories: [],
       cadastro: {
@@ -44,11 +47,11 @@ Vue.prototype.$products_controller = new Vue({
       });
     },
 
-    validateForm(idproduto) {
+    validateForm() {
       if (this.newOrEdit == "new") {
         this.addProducts();
       } else {
-        this.updateProducts(idproduto);
+        this.updateProducts(this.produto_id);
       }
     },
 
@@ -84,12 +87,27 @@ Vue.prototype.$products_controller = new Vue({
         .then((res) => {
           this.openModal = false;
           this.loading_btn = false;
+          this.clearAllFields();
           this.getAllProducts();
           this.$toast.success("Produto Alterado com Sucesso!");
         })
         .catch(() => {
           this.loading_btn = false;
-          this.$toast.error("Ocorreu um erro ao adicionar o produto!");
+          this.$toast.error("Ocorreu um erro ao alterar o produto!");
+        });
+    },
+    deleteProduct() {
+      this.loading_btn = true;
+      excluirProduto(this.produto_id)
+        .then((res) => {
+          this.loading_btn = false;
+          this.openDelete = false;
+          this.getAllProducts();
+          this.$toast.success("Produto Removido com Sucesso!");
+        })
+        .catch(() => {
+          this.loading_btn = false;
+          this.$toast.error("Ocorreu um erro ao remover o produto!");
         });
     },
     clearAllFields() {

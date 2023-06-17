@@ -1,8 +1,8 @@
 <template>
-  <Fragment>
+  <v-container>
     <h1>homeView</h1>
     <v-btn @click="showToast">teste</v-btn>
-  </Fragment>
+  </v-container>
 </template>
 
 <script>

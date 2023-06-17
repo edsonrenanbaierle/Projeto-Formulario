@@ -1,35 +1,52 @@
 <template>
-  <v-dialog :value="$products_controller.openModal" max-width="600px">
-    <v-card class="rounded-xl">
+  <v-dialog
+    :value="$products_controller.openModal"
+    max-width="600px"
+    persistent
+  >
+    <v-card class="rounded-xl pb-1">
       <v-toolbar color="green">
         <v-card-title class="title">
-          <span class="text-h5 title">Adicionar Produto</span>
+          <span class="text-h5 title">{{
+            $products_controller.newOrEdit == "new"
+              ? "Adicionar Produto"
+              : "Alterar Produto - " + $products_controller.nome_produto
+          }}</span>
         </v-card-title>
       </v-toolbar>
-      <v-form @submit.prevent="$products_controller.validateForm()">
+      <v-form
+        @submit.prevent="validateFormProduct()"
+        ref="form"
+        lazy-validation
+        validate-on-blur
+      >
         <v-card-text>
           <v-container>
             <v-row>
-              <v-col cols="12" class="pb-0">
+              <v-col cols="12">
                 <v-text-field
-                  label="Nome do Produto"
+                  label="Nome do Produto*"
+                  required
                   v-model="$products_controller.cadastro.produto"
                   outlined
                   rounded
+                  :rules="NomeProduto"
                 ></v-text-field>
               </v-col>
-              <v-col cols="12" class="pt-0 pb-0">
+              <v-col cols="12">
                 <v-select
-                  label="Categoria"
+                  label="Categoria*"
                   outlined
+                  required
                   v-model="$products_controller.cadastro.categoria"
                   rounded
                   :items="$products_controller.categories"
+                  :rules="rulesCategoria"
                   item-text="descricao"
                   item-value="descricao"
                 ></v-select>
               </v-col>
-              <v-col cols="12" class="pt-0">
+              <v-col cols="12">
                 <moneyInput
                   label="Preço do Produto"
                   outlined
@@ -41,19 +58,18 @@
               </v-col>
             </v-row>
           </v-container>
-          <small>*indicates required field</small>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
+          <v-btn color="grey" text @click="closeModal()"> Cancelar </v-btn>
           <v-btn
-            color="grey"
-            text
-            @click="$products_controller.openModal = false"
+            color="green"
+            rounded
+            class="btn-primary"
+            type="submit"
+            :loading="$products_controller.loading_btn"
           >
-            Close
-          </v-btn>
-          <v-btn color="green" text @click="dialog = false" type="submit">
-            Save
+            Salvar
           </v-btn>
         </v-card-actions>
       </v-form>
@@ -74,10 +90,24 @@ export default {
         length: 9,
         precision: 2,
       },
+      NomeProduto: [(v) => !!v || "Insira o nome do produto!"],
+      rulesCategoria: [(v) => !!v || "Insira uma categoria para o produto!"],
     };
   },
   components: {
     moneyInput,
+  },
+  methods: {
+    closeModal() {
+      this.$products_controller.clearAllFields();
+      this.$refs.form.resetValidation();
+      this.$products_controller.openModal = false;
+    },
+    validateFormProduct() {
+      if (this.$refs.form.validate()) {
+        this.$products_controller.validateForm();
+      }
+    },
   },
   mounted() {
     this.$products_controller.getCategories();

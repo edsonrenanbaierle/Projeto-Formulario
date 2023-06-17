@@ -1,11 +1,6 @@
 <template>
   <v-app>
-    <v-main>
-      <navbar />
-      <v-fade-transition mode="out-in" appear>
-        <router-view />
-      </v-fade-transition>
-    </v-main>
+    <router-view />
   </v-app>
 </template>
 
@@ -17,9 +12,6 @@ export default {
     drawer: false,
     group: null,
   }),
-  components: {
-    navbar: () => import("@/components/Header/Navbar.vue"),
-  },
   methods: {},
 };
 </script>

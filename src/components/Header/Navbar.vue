@@ -5,11 +5,14 @@
         ><img src="@/assets/logoCR.png" alt="logo" width="200" class="pt-3"
       /></v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn text color="green" rounded class="btn-primary mr-1" to="/"
+      <v-btn text color="green" rounded class="btn-primary mr-2" to="/"
         >Home</v-btn
       >
-      <v-btn color="green" rounded class="btn-primary" to="/products"
+      <v-btn color="green" rounded class="btn-primary mr-2" to="/products"
         >Produtos</v-btn
+      >
+      <v-btn color="green" rounded class="btn-primary" to="/relatorio-vendas"
+        >Relatório Vendas</v-btn
       >
     </v-app-bar>
   </v-container>
