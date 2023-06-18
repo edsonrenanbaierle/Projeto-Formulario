@@ -8,7 +8,9 @@
       Não há produtos no carrinho
     </p>
     <v-col
-      cols="2"
+      sm="2"
+      md="2"
+      lg="2"
       v-for="(cartProduct, index) in $cart.cart"
       :key="index"
       v-else
@@ -40,6 +42,14 @@ export default {
       });
       return total;
     },
+  },
+  updated() {
+    localStorage.setItem("cachedCart", JSON.stringify(this.$cart.cart));
+  },
+  mounted() {
+    if (localStorage.getItem("cachedCart").length > 0) {
+      this.$cart.cart = JSON.parse(localStorage.getItem("cachedCart"));
+    }
   },
 };
 </script>

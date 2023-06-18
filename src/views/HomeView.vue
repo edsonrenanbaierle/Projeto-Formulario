@@ -98,6 +98,9 @@ export default {
   mounted() {
     this.$products_controller.getAllProducts();
   },
+  updated() {
+    localStorage.setItem("cachedCart", JSON.stringify(this.$cart.cart));
+  },
   destroyed() {
     this.$products_controller.all_products = [];
   },

@@ -28,6 +28,17 @@
         </v-btn>
       </div>
       <div v-else>
+        <v-btn icon class="ml-2" to="/checkout">
+          <v-icon>mdi-cart</v-icon>
+          <v-badge
+            :content="$cart.cart.length"
+            color="green"
+            overlap
+            bordered
+            class="badge-cart"
+            v-if="$cart.cart.length > 0"
+          ></v-badge>
+        </v-btn>
         <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       </div>
     </v-app-bar>
