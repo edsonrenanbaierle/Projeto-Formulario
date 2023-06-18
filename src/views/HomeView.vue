@@ -1,17 +1,105 @@
+<!-- eslint-disable vue/valid-v-for -->
 <template>
   <v-container>
-    <h1>homeView</h1>
-    <v-btn @click="showToast">teste</v-btn>
+    <div class="d-flex justify-center align-center mb-10">
+      <h1>Produtos Disponíveis</h1>
+      <v-icon color="black" size="35" class="ml-3">mdi-store</v-icon>
+    </div>
+    <div
+      v-if="$products_controller.all_products.length == 0"
+      style="height: 80vh; width: 100%"
+      class="d-flex justify-center align-center"
+    >
+      <v-progress-circular
+        indeterminate
+        :size="90"
+        :width="10"
+        color="green"
+      ></v-progress-circular>
+    </div>
+    <v-row v-else>
+      <v-col
+        md="4"
+        sm="6"
+        lg="3"
+        cols="12"
+        v-for="(products, index) in $products_controller.all_products"
+        :key="index"
+      >
+        <v-card class="rounded-xl pa-2" elevation="4">
+          <v-card-title> {{ products.produtoDescricao }}</v-card-title>
+          <v-card-text> {{ products.produtoValor | moeda }}</v-card-text>
+          <v-card-actions>
+            <v-row align="center" class="ma-0">
+              <v-btn icon @click="incrementProduct(index)"
+                ><v-icon>mdi-plus</v-icon></v-btn
+              >
+              {{ $cart.item_amount[index].quantidade }}
+              <v-btn icon @click="decrementProduct(index)"
+                ><v-icon>mdi-minus</v-icon></v-btn
+              >
+            </v-row>
+            <v-btn
+              rounded
+              color="green"
+              class="btn-primary"
+              @click="$cart.addProduct()"
+              ><v-icon class="pr-1">mdi-plus</v-icon> Adicionar</v-btn
+            >
+          </v-card-actions>
+        </v-card>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
 <script>
 export default {
   name: "homeView",
+  data() {
+    return {};
+  },
   methods: {
     showToast() {
       this.$toast.success("Produto adicionado");
     },
+    incrementProduct(index) {
+      if (!this.$cart.item_amount[index]) {
+        this.$cart.item_amount[index] = {
+          produtoId: this.$products_controller.all_products[index].produtoId,
+          produtoDescricao: this.$products_controller[index].produtoDescricao,
+          produtoValor: this.$products_controller[index].produtoValor,
+          quantidade: 0,
+        };
+      }
+      this.$cart.item_amount[index].quantidade++;
+    },
+    decrementProduct(index) {
+      if (
+        this.$cart.item_amount[index] &&
+        this.$cart.item_amount[index].quantidade > 0
+      ) {
+        this.$cart.item_amount[index].quantidade--;
+      }
+    },
+  },
+  watch: {
+    "$products_controller.all_products"() {
+      const value = this.$products_controller.all_products.map((product) => ({
+        produtoId: product.produtoId,
+        produtoDescricao: product.produtoDescricao,
+        produtoValor: product.produtoValor,
+        quantidade: 0,
+      }));
+      console.log(this.$products_controller.all_products);
+      this.$cart.item_amount = value;
+    },
+  },
+  mounted() {
+    this.$products_controller.getAllProducts();
+  },
+  destroyed() {
+    this.$products_controller.all_products = [];
   },
 };
 </script>

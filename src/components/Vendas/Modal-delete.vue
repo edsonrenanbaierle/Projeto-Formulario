@@ -1,6 +1,6 @@
 <template>
   <v-dialog
-    v-model="$products_controller.openDelete"
+    v-model="$vendas_controller.openDelete"
     max-width="500px"
     persistent
   >
@@ -14,7 +14,7 @@
           color="green"
           class="btn-primary"
           @click="confirm"
-          :loading="$products_controller.loading_btn"
+          :loading="$vendas_controller.loading_btn"
           >Confirmar</v-btn
         >
       </v-card-actions>
@@ -27,11 +27,11 @@ export default {
   props: {
     title: {
       type: String,
-      default: "Remover",
+      default: "Cancelar",
     },
     message: {
       type: String,
-      default: "Tem certeza de que deseja remover o produto?",
+      default: "Tem certeza de que deseja cancelar a venda?",
     },
   },
   methods: {

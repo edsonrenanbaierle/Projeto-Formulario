@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "http://localhost:8080/api"; // Change this URL to match your server URL
+const baseUrl = process.env.VUE_APP_BASE_API; // Change this URL to match your server URL
 
 // Function to fetch all sales
 export function buscarVendas() {

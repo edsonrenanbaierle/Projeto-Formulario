@@ -1,16 +1,19 @@
 <!-- eslint-disable vue/valid-v-slot -->
 <template>
-  <Fragment>
-    <v-container>
-      <v-col cols="10" class="mx-auto">
+  <v-container>
+    <v-col cols="10" class="mx-auto">
+      <v-card elevation="4" class="pa-5 rounded-xl">
+        <div class="mb-10 d-flex justify-center">
+          <h1>Produtos</h1>
+        </div>
         <div
           style="width: 100%"
-          :class="!smAndUp ? 'd-flex justify-center' : ''"
+          :class="!smAndUp ? 'd-flex justify-center' : 'd-flex justify-end'"
         >
           <v-btn
             color="green"
             rounded
-            class="btn-primary mb-10 mx-auto"
+            class="btn-primary"
             @click="openModal('new')"
           >
             <v-icon>mdi-plus</v-icon>
@@ -53,14 +56,14 @@
             </v-btn>
           </template>
         </v-data-table>
-      </v-col>
-    </v-container>
+      </v-card>
+    </v-col>
     <confirmation-modal
       @confirm="$products_controller.deleteProduct()"
       @cancel="cancelAction"
     ></confirmation-modal>
     <ModalProducts />
-  </Fragment>
+  </v-container>
 </template>
 <script>
 import ProductsMixins from "@/mixins/Products.mixins";
@@ -86,36 +89,8 @@ export default {
   mounted() {
     this.$products_controller.getAllProducts();
   },
+  destroyed() {
+    this.$products_controller.all_products = [];
+  },
 };
 </script>
-<style>
-.v-data-table__wrapper {
-  border-radius: 10px;
-}
-.v-data-table-header {
-  background-color: #4caf50;
-}
-.text-center.sortable {
-  color: white !important;
-}
-thead > tr > th:last-child {
-  position: sticky !important;
-  position: -webkit-sticky !important;
-  right: 0;
-}
-
-thead > tr > th > span > svg {
-  fill: #fff !important;
-}
-
-tbody > tr > td {
-  padding: 0 8px !important;
-}
-
-tbody > tr > td:last-child {
-  position: sticky !important;
-  position: -webkit-sticky !important;
-  right: 0;
-  background-color: #fff;
-}
-</style>

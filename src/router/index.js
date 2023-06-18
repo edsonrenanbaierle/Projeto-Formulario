@@ -22,6 +22,21 @@ const routes = [
     ],
   },
   {
+    path: "/checkout",
+    name: "",
+    component: baseLayout,
+    children: [
+      {
+        name: "checkoutResume",
+        path: "",
+        component: () => import("../views/cart/Cart.vue"),
+        meta: {
+          requiresAuth: false,
+        },
+      },
+    ],
+  },
+  {
     path: "/products",
     name: "",
     component: baseLayout,
@@ -64,4 +79,19 @@ const router = new VueRouter({
   routes,
 });
 
+let isNavigating = false;
+
+router.beforeEach((to, from, next) => {
+  if (isNavigating) {
+    // Evita a navegação duplicada
+    return;
+  }
+
+  isNavigating = true;
+  next();
+});
+
+router.afterEach(() => {
+  isNavigating = false;
+});
 export default router;

@@ -9,13 +9,17 @@ import VueTheMask from "vue-the-mask";
 
 import "vue-toastification/dist/index.css";
 
-import "@/controllers/config";
-
 //HELPERS
 import "@/helpers";
 
 //PRODUCTS CONTROLLER
 import "@/controllers/Products.controller";
+
+//VENDAS CONTROLLER
+import "@/controllers/Vendas.controller";
+
+//CART CONTROLLER
+import "@/controllers/cart.controller";
 
 Vue.use(VueTheMask);
 
