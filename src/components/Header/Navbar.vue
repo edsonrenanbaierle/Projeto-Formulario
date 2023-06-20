@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-app-bar elevation="0" color="#FFFFFF">
+    <v-app-bar color="#FFFFFF" :elevation="elevation" app class="px-6">
       <v-toolbar-title @click="$router.push('/')" class="cursor-pointer"
         ><img src="@/assets/logoCR.png" alt="logo" width="200" class="pt-3"
       /></v-toolbar-title>
@@ -82,7 +82,19 @@ export default {
   name: "NavbarComponent",
   data: () => ({
     drawer: false,
+    elevation: 0,
   }),
+  mounted() {
+    window.addEventListener("scroll", this.handleScroll);
+  },
+  beforeDestroy() {
+    window.removeEventListener("scroll", this.handleScroll);
+  },
+  methods: {
+    handleScroll() {
+      this.elevation = window.scrollY > 0 ? 3 : 0;
+    },
+  },
 };
 </script>
 <style>

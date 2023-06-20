@@ -26,22 +26,25 @@
         v-for="(products, index) in $products_controller.all_products"
         :key="index"
       >
-        <v-card class="rounded-xl pa-2" elevation="4">
+        <v-card class="hover-card rounded-xl pa-2" elevation="4">
           <v-card-title> {{ products.produtoDescricao }}</v-card-title>
           <v-card-text> {{ products.produtoValor | moeda }}</v-card-text>
           <v-card-actions>
             <v-row align="center" class="ma-0">
-              <v-btn icon @click="incrementProduct(index)"
-                ><v-icon>mdi-plus</v-icon></v-btn
-              >
-              {{ $cart.item_amount[index].quantidade }}
-              <v-btn icon @click="decrementProduct(index)"
+              <v-btn fab x-small plain @click="decrementProduct(index)"
                 ><v-icon>mdi-minus</v-icon></v-btn
+              >
+              <span class="mx-2">
+                {{ $cart.item_amount[index].quantidade }}
+              </span>
+              <v-btn fab x-small @click="incrementProduct(index)" color="green"
+                ><v-icon>mdi-plus</v-icon></v-btn
               >
             </v-row>
             <v-btn
               rounded
               color="green"
+              :disabled="$cart.item_amount[index].quantidade == 0"
               class="btn-primary"
               @click="$cart.addProduct()"
               ><v-icon class="pr-1">mdi-plus</v-icon> Adicionar</v-btn
@@ -91,12 +94,14 @@ export default {
         produtoValor: product.produtoValor,
         quantidade: 0,
       }));
-      console.log(this.$products_controller.all_products);
       this.$cart.item_amount = value;
     },
   },
   mounted() {
     this.$products_controller.getAllProducts();
+    if (localStorage.getItem("cachedCart").length > 0) {
+      this.$cart.cart = JSON.parse(localStorage.getItem("cachedCart"));
+    }
   },
   updated() {
     localStorage.setItem("cachedCart", JSON.stringify(this.$cart.cart));
@@ -106,3 +111,13 @@ export default {
   },
 };
 </script>
+<style>
+.hover-card {
+  position: relative;
+  top: 0;
+  transition: 0.4s ease-in-out;
+}
+.hover-card:hover {
+  transform: scale(1.07);
+}
+</style>
