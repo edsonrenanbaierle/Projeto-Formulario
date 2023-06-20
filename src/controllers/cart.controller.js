@@ -1,4 +1,5 @@
 import Vue from "vue";
+import { adicionarPedido } from "@/api/pedidoApi";
 
 Vue.prototype.$cart = new Vue({
   data: () => ({
@@ -42,6 +43,13 @@ Vue.prototype.$cart = new Vue({
       }
       const order = [...this.cart];
       order.unshift(this.tipo);
+      adicionarPedido(order)
+        .then(() => {
+          this.$toast.info("Pedido realizado com sueceso!");
+        })
+        .catch(() => {
+          this.$toast.error("Ocorreu um erro ao realizar o pedido!");
+        });
       console.table(order);
     },
   },
