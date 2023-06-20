@@ -6,6 +6,7 @@ import vuetify from "./plugins/vuetify";
 import Toast from "vue-toastification";
 import "./stylesGlobal.css";
 import VueTheMask from "vue-the-mask";
+import VueMeta from "vue-meta";
 
 import "vue-toastification/dist/index.css";
 
@@ -20,7 +21,7 @@ import "@/controllers/Vendas.controller";
 
 //CART CONTROLLER
 import "@/controllers/cart.controller";
-
+Vue.use(VueMeta);
 Vue.use(VueTheMask);
 
 Vue.use(Toast, {

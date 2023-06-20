@@ -78,6 +78,9 @@ export default {
     confirmationModal: () =>
       import("@/components/Products/Modal/Modal-delete.vue"),
   },
+  metaInfo: {
+    title: "Cadastro de Produtos | Comida de Rua",
+  },
   data: () => ({
     showModal: false,
   }),

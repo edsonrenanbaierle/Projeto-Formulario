@@ -53,6 +53,9 @@ export default {
   components: {
     confirmationModal: () => import("@/components/Vendas/Modal-delete.vue"),
   },
+  metaInfo: {
+    title: "Vendas Relatório | Comida de Rua",
+  },
   data() {
     return {};
   },

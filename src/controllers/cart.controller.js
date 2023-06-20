@@ -30,12 +30,12 @@ Vue.prototype.$cart = new Vue({
       this.item_amount.forEach((item) => {
         item.quantidade = 0;
       });
-      this.$toast.info("Produto adicionado ao carrinho!");
+      this.$toast.success("Produto adicionado ao carrinho!");
     },
 
     removeProduct(index) {
       this.cart.splice(index, 1);
-      this.$toast.info("Produto removido com sucesso!");
+      this.$toast.success("Produto removido com sucesso!");
     },
     finishOrder() {
       if (this.tipo.forma_pag == "") {

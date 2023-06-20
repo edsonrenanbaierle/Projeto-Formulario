@@ -3,9 +3,10 @@
     <v-container>
       <template v-if="$cart.cart.length == 0">
         <p
-          class="headline d-flex justify-center align-center"
+          class="headline d-flex justify-center align-center flex-column"
           style="height: 80vh; width: 100%"
         >
+          <v-icon size="80">mdi-cart-off</v-icon>
           Não há produtos no carrinho
         </p>
       </template>
@@ -146,6 +147,9 @@
 <script>
 export default {
   name: "cartCheckout",
+  metaInfo: {
+    title: "Carrinho | Comida de Rua",
+  },
   data: () => ({
     activePix: false,
     activeMoney: false,

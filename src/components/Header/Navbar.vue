@@ -1,11 +1,25 @@
 <template>
   <v-container>
-    <v-app-bar color="#FFFFFF" :elevation="elevation" app class="px-6">
+    <v-app-bar
+      :color="isDark ? '#121212' : '#FFFFFF'"
+      :elevation="elevation"
+      app
+      :class="$vuetify.breakpoint.smAndUp ? 'px-6' : 'px-0'"
+    >
       <v-toolbar-title @click="$router.push('/')" class="cursor-pointer"
-        ><img src="@/assets/logoCR.png" alt="logo" width="200" class="pt-3"
+        ><img
+          :src="isDark ? logoDARK : logoImg"
+          alt="logo"
+          width="200"
+          class="pt-3"
       /></v-toolbar-title>
       <v-spacer></v-spacer>
       <div v-if="$vuetify.breakpoint.mdAndUp">
+        <v-btn icon @click="$vuetify.theme.dark = !$vuetify.theme.dark"
+          ><v-icon>{{
+            isDark ? "mdi-weather-sunny" : "mdi-weather-night"
+          }}</v-icon></v-btn
+        >
         <v-btn text color="green" rounded class="btn-primary mr-2" to="/"
           >Home</v-btn
         >
@@ -44,7 +58,7 @@
     </v-app-bar>
     <v-navigation-drawer
       v-model="drawer"
-      color="green"
+      :color="isDark ? '#121212' : 'green'"
       app
       class="btn-primary"
       v-if="!$vuetify.breakpoint.mdAndUp"
@@ -74,6 +88,18 @@
           >
         </v-list-item>
       </v-list>
+      <template v-slot:append>
+        <v-list-item link @click="$vuetify.theme.dark = !$vuetify.theme.dark">
+          <v-list-item-icon>
+            <v-icon color="white">{{
+              isDark ? "mdi-weather-sunny" : "mdi-weather-night"
+            }}</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title class="text-white">{{
+            isDark ? "Tema Claro" : "Tema Escuro"
+          }}</v-list-item-title>
+        </v-list-item>
+      </template>
     </v-navigation-drawer>
   </v-container>
 </template>
@@ -83,9 +109,24 @@ export default {
   data: () => ({
     drawer: false,
     elevation: 0,
+    logoImg: require("@/assets/logoCR.png"),
+    logoDARK: require("@/assets/logoDARK.png"),
   }),
+  computed: {
+    isDark() {
+      if (this.$vuetify.theme.dark) {
+        return true;
+      }
+      return false;
+    },
+  },
+  updated() {
+    localStorage.setItem("userTheme", this.$vuetify.theme.dark);
+  },
   mounted() {
     window.addEventListener("scroll", this.handleScroll);
+    const theme = localStorage.getItem("userTheme");
+    this.$vuetify.theme.dark = JSON.parse(theme);
   },
   beforeDestroy() {
     window.removeEventListener("scroll", this.handleScroll);

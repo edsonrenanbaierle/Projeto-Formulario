@@ -3,7 +3,7 @@
   <v-container>
     <div class="d-flex justify-center align-center mb-10">
       <h1>Produtos Disponíveis</h1>
-      <v-icon color="black" size="35" class="ml-3">mdi-store</v-icon>
+      <v-icon size="35" class="ml-3">mdi-store</v-icon>
     </div>
     <div
       v-if="$products_controller.all_products.length == 0"
@@ -59,6 +59,9 @@
 <script>
 export default {
   name: "homeView",
+  metaInfo: {
+    title: "Produtos Disponíveis | Comida de Rua",
+  },
   data() {
     return {};
   },

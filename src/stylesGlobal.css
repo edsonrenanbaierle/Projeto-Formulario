@@ -70,5 +70,26 @@ tbody > tr > td:last-child {
   position: sticky !important;
   position: -webkit-sticky !important;
   right: 0;
-  background-color: #fff;
+  /* background-color: #fff; */
+  backdrop-filter: blur(30px);
+}
+/* width */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+/* Track *
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #7c7e7c;
+  border-radius: 20px;
+  transition: 0.4s ease-in-out;
+
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #3c3d3c;
 }
