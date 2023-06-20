@@ -11,7 +11,6 @@
     v-bind:error="error"
     v-bind:rules="rules"
     v-bind:clearable="clearable"
-    v-bind:backgroundColor="backgroundColor"
     v-bind:prefix="options.prefix"
     v-bind:suffix="options.suffix"
     v-on:keypress="keyPress"
@@ -75,10 +74,6 @@ export default {
     clearable: {
       type: Boolean,
       default: false,
-    },
-    backgroundColor: {
-      type: String,
-      default: "white",
     },
     valueWhenIsEmpty: {
       type: String,
