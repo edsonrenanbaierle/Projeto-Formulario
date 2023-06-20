@@ -25,11 +25,11 @@ export function adicionarPedido(dadosPedido) {
 
   const pedidoTratado = {
     itens: itens,
-    formaPagamento: formaPagamento,
+    tipoPagamento: formaPagamento,
   };
   const url = `${baseUrl}/pedidos`;
   console.warn(pedidoTratado);
-  return axios.post(url, { pedidoTratado });
+  return axios.post(url, pedidoTratado);
 }
 
 export function excluirPedido(pedidoId) {

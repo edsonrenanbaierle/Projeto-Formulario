@@ -72,7 +72,7 @@
                   <v-btn
                     fab
                     :color="activeMoney ? 'green' : 'grey'"
-                    @click="paymentMethods('CASH')"
+                    @click="paymentMethods('DINHEIRO')"
                     class="btn-primary mb-3"
                     ><v-icon>mdi-cash-multiple</v-icon></v-btn
                   >
@@ -123,7 +123,7 @@
               <v-btn
                 fab
                 :color="activeMoney ? 'green' : 'grey'"
-                @click="paymentMethods('CASH')"
+                @click="paymentMethods('DINHEIRO')"
                 class="btn-primary mb-3"
                 ><v-icon>mdi-cash-multiple</v-icon></v-btn
               >
