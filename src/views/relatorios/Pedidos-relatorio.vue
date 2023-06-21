@@ -5,33 +5,42 @@
     <v-col cols="10" class="mx-auto">
       <v-card elevation="4" class="pa-5 rounded-xl">
         <div class="mb-10 d-flex justify-center">
-          <h1>Relatório de Vendas</h1>
+          <h1>Meus Pedidos</h1>
         </div>
         <v-data-table
-          :headers="headersVenda"
-          :items="vendasValues"
-          :loading="$vendas_controller.loading_table"
+          :headers="headersPedido"
+          :items="$pedidos_controller.pedidos"
+          :loading="$pedidos_controller.loading_table"
           :items-per-page="10"
           :header-props="{
             sortByText: 'Ordernar',
           }"
           :footer-props="{
             itemsPerPageOptions: [10, 20, 50],
-            itemsPerPageText: 'Vendas por página:',
+            itemsPerPageText: 'Pedidos por página:',
           }"
-          loading-text="Buscando Vendas..."
-          no-data-text="Não há vendas"
+          loading-text="Buscando pedidos..."
+          no-data-text="Não há pedidos"
           class="mt-10 table-body"
         >
-          <template v-slot:item.produtoValor="{ item }">
-            {{ item.produtoValor | moeda }}
+          <template v-slot:item.pedidoData="{ item }">
+            {{ item.pedidoData | formatDate("DD/MM/YYYY") }}
           </template>
           <template v-slot:item.actions="{ item }" class="table-actions">
             <v-btn
               icon
               small
+              color="grey"
+              @click="openDetailModal(item.idPedido)"
+              class="mr-5"
+            >
+              <v-icon> mdi-book-open </v-icon>
+            </v-btn>
+            <v-btn
+              icon
+              small
               color="red"
-              @click="openDeleteModal(item.venda_id)"
+              @click="openDeleteModal(item.idPedido)"
             >
               <v-icon> mdi-delete </v-icon>
             </v-btn>
@@ -40,43 +49,37 @@
       </v-card>
     </v-col>
     <confirmation-modal
-      @confirm="$vendas_controller.cancelSale()"
+      @confirm="$pedidos_controller.cancelSale()"
       @cancel="cancelAction"
     ></confirmation-modal>
+    <detalhesModal />
   </v-container>
 </template>
 <script>
-import vendasMixins from "@/mixins/Vendas.mixins";
+import pedidosMixins from "@/mixins/Pedidos.mixins";
 export default {
-  name: "vendasRelatorios",
-  mixins: [vendasMixins],
+  name: "pedidosRelatorios",
+  mixins: [pedidosMixins],
   components: {
-    confirmationModal: () => import("@/components/Vendas/Modal-delete.vue"),
+    confirmationModal: () => import("@/components/Pedidos/Modal-delete.vue"),
+    detalhesModal: () => import("@/components/Pedidos/Pedidos-detalhes.vue"),
   },
   metaInfo: {
-    title: "Vendas Relatório | Comida de Rua",
+    title: "Pedidos Relatório | Comida de Rua",
   },
   data() {
     return {};
   },
   methods: {
     cancelAction() {
-      this.$vendas_controller.openDelete = false;
-    },
-  },
-  computed: {
-    vendasValues() {
-      const vendas = this.$vendas_controller.vendas.map(
-        (items) => items.produto
-      );
-      return vendas;
+      this.$pedidos_controller.openDelete = false;
     },
   },
   mounted() {
-    this.$vendas_controller.getVendas();
+    this.$pedidos_controller.getpedidos();
   },
   destroyed() {
-    this.$vendas_controller.vendas = [];
+    this.$pedidos_controller.pedidos = [];
   },
 };
 </script>

@@ -1,11 +1,14 @@
 import Vue from "vue";
 import { adicionarPedido } from "@/api/pedidoApi";
+import router from "@/router";
+import Swal from "sweetalert2";
 
 Vue.prototype.$cart = new Vue({
   data: () => ({
     item_amount: [],
     cart: [],
     order: [],
+    finish_button: false,
     tipo: { forma_pag: "" },
   }),
   methods: {
@@ -41,14 +44,22 @@ Vue.prototype.$cart = new Vue({
       if (this.tipo.forma_pag == "") {
         return this.$toast.error("Escolha uma forma de pagamento!");
       }
+      this.finish_button = true;
       const order = [...this.cart];
       order.unshift(this.tipo);
       adicionarPedido(order)
         .then(() => {
-          this.$toast.info("Pedido realizado com sueceso!");
+          this.finish_button = false;
+          Swal.fire("", "Pedido Realizado com sucesso!", "success");
+          this.cart = [];
+          this.tipo.forma_pag = "";
         })
         .catch(() => {
+          this.finish_button = false;
           this.$toast.error("Ocorreu um erro ao realizar o pedido!");
+        })
+        .finally(() => {
+          router.push({ path: "/" });
         });
       console.table(order);
     },

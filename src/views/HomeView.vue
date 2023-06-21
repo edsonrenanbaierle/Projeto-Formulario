@@ -2,8 +2,9 @@
 <template>
   <v-container>
     <div class="d-flex justify-center align-center mb-10">
-      <h1>Produtos Disponíveis</h1>
-      <v-icon size="35" class="ml-3">mdi-store</v-icon>
+      <h1 :class="!$vuetify.breakpoint.smAndUp ? 'btn-sm' : ''">
+        Produtos Disponíveis
+      </h1>
     </div>
     <div
       v-if="$products_controller.all_products.length == 0"
@@ -47,7 +48,7 @@
               :disabled="$cart.item_amount[index].quantidade == 0"
               class="btn-primary"
               @click="$cart.addProduct()"
-              ><v-icon class="pr-1">mdi-plus</v-icon> Adicionar</v-btn
+              >Adicionar<v-icon class="pl-1">mdi-cart</v-icon></v-btn
             >
           </v-card-actions>
         </v-card>
@@ -114,13 +115,19 @@ export default {
   },
 };
 </script>
-<style>
-.hover-card {
+<style scoped>
+.btn-primary:hover {
+  transform: scale(1.03);
+}
+.btn-sm {
+  font-size: 1.7rem;
+}
+/* .hover-card {
   position: relative;
   top: 0;
   transition: 0.4s ease-in-out;
 }
 .hover-card:hover {
   transform: scale(1.07);
-}
+} */
 </style>

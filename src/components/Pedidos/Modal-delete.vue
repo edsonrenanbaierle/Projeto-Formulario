@@ -1,6 +1,6 @@
 <template>
   <v-dialog
-    v-model="$vendas_controller.openDelete"
+    v-model="$pedidos_controller.openDelete"
     max-width="500px"
     persistent
   >
@@ -14,7 +14,7 @@
           color="green"
           class="btn-primary"
           @click="confirm"
-          :loading="$vendas_controller.loading_btn"
+          :loading="$pedidos_controller.loading_btn"
           >Confirmar</v-btn
         >
       </v-card-actions>
@@ -31,7 +31,7 @@ export default {
     },
     message: {
       type: String,
-      default: "Tem certeza de que deseja cancelar a venda?",
+      default: "Tem certeza de que deseja cancelar o pedido?",
     },
   },
   methods: {

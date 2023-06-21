@@ -16,8 +16,8 @@ import "@/helpers";
 //PRODUCTS CONTROLLER
 import "@/controllers/Products.controller";
 
-//VENDAS CONTROLLER
-import "@/controllers/Vendas.controller";
+//PEDIDOS CONTROLLER
+import "@/controllers/Pedidos.controller";
 
 //CART CONTROLLER
 import "@/controllers/cart.controller";
@@ -28,7 +28,7 @@ Vue.use(Toast, {
   transition: "Vue-Toastification__bounce",
   maxToasts: 20,
   newestOnTop: true,
-  position: "top-right",
+  position: "bottom-center",
   timeout: 5000,
   closeOnClick: true,
   pauseOnFocusLoss: true,

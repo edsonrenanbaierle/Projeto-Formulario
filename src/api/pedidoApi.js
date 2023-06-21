@@ -33,6 +33,6 @@ export function adicionarPedido(dadosPedido) {
 }
 
 export function excluirPedido(pedidoId) {
-  const url = `${baseUrl}/pedido/${pedidoId}`;
+  const url = `${baseUrl}/pedidos/${pedidoId}`;
   return axios.delete(url);
 }

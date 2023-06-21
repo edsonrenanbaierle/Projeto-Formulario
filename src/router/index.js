@@ -52,14 +52,14 @@ const routes = [
     ],
   },
   {
-    path: "/relatorio-vendas",
+    path: "/relatorio-pedidos",
     name: "",
     component: baseLayout,
     children: [
       {
-        name: "relatorio-vendas",
+        name: "relatorio-pedidos",
         path: "",
-        component: () => import("../views/relatorios/Vendas-relatorio.vue"),
+        component: () => import("../views/relatorios/Pedidos-relatorio.vue"),
         meta: {
           requiresAuth: false,
         },

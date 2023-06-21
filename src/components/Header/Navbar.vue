@@ -3,8 +3,9 @@
     <v-app-bar
       :color="isDark ? '#121212' : '#FFFFFF'"
       :elevation="elevation"
+      width="100%"
       app
-      :class="$vuetify.breakpoint.smAndUp ? 'px-6' : 'px-0'"
+      :class="$vuetify.breakpoint.mdAndUp ? 'navbar-desk' : ''"
     >
       <v-toolbar-title @click="$router.push('/')" class="cursor-pointer"
         ><img
@@ -15,21 +16,12 @@
       /></v-toolbar-title>
       <v-spacer></v-spacer>
       <div v-if="$vuetify.breakpoint.mdAndUp">
-        <v-btn icon @click="$vuetify.theme.dark = !$vuetify.theme.dark"
+        <!-- <v-btn icon @click="$vuetify.theme.dark = !$vuetify.theme.dark"
           ><v-icon>{{
             isDark ? "mdi-weather-sunny" : "mdi-weather-night"
           }}</v-icon></v-btn
-        >
-        <v-btn text color="green" rounded class="btn-primary mr-2" to="/"
-          >Home</v-btn
-        >
-        <v-btn color="green" rounded class="btn-primary mr-2" to="/products"
-          >Produtos</v-btn
-        >
-        <v-btn color="green" rounded class="btn-primary" to="/relatorio-vendas"
-          >Relatório de vendas</v-btn
-        >
-        <v-btn icon class="ml-2" to="/checkout">
+        > -->
+        <v-btn icon class="mr-2" to="/checkout">
           <v-icon>mdi-cart</v-icon>
           <v-badge
             :content="$cart.cart.length"
@@ -40,6 +32,39 @@
             v-if="$cart.cart.length > 0"
           ></v-badge>
         </v-btn>
+        <v-menu rounded="lg" offset-y>
+          <template v-slot:activator="{ attrs, on }">
+            <v-app-bar-nav-icon v-on="on" v-bind="attrs"></v-app-bar-nav-icon>
+          </template>
+          <v-list>
+            <v-list-item link to="/">
+              <v-list-item-icon>
+                <v-icon :color="isDark ? 'white' : 'black'">mdi-home</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title :class="isDark ? 'text-white' : ''"
+                >Home</v-list-item-title
+              >
+            </v-list-item>
+            <v-list-item link to="/products">
+              <v-list-item-icon>
+                <v-icon :color="isDark ? 'white' : 'black'">mdi-store</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title :class="isDark ? 'text-white' : ''"
+                >Produtos</v-list-item-title
+              >
+            </v-list-item>
+            <v-list-item link to="/relatorio-pedidos">
+              <v-list-item-icon>
+                <v-icon :color="isDark ? 'white' : 'black'"
+                  >mdi-clipboard-text-outline</v-icon
+                >
+              </v-list-item-icon>
+              <v-list-item-title :class="isDark ? 'text-white' : ''"
+                >Meus Pedidos</v-list-item-title
+              >
+            </v-list-item>
+          </v-list>
+        </v-menu>
       </div>
       <div v-else>
         <v-btn icon class="ml-2" to="/checkout">
@@ -79,13 +104,11 @@
           </v-list-item-icon>
           <v-list-item-title class="text-white">Produtos</v-list-item-title>
         </v-list-item>
-        <v-list-item link to="/relatorio-vendas">
+        <v-list-item link to="/relatorio-pedidos">
           <v-list-item-icon>
             <v-icon color="white">mdi-clipboard-text-outline</v-icon>
           </v-list-item-icon>
-          <v-list-item-title class="text-white"
-            >Relatório de vendas</v-list-item-title
-          >
+          <v-list-item-title class="text-white">Meus Pedidos</v-list-item-title>
         </v-list-item>
       </v-list>
       <template v-slot:append>
@@ -157,5 +180,9 @@ export default {
 }
 .cursor-pointer {
   cursor: pointer;
+}
+.navbar-desk {
+  padding-left: 5rem;
+  padding-right: 5rem;
 }
 </style>

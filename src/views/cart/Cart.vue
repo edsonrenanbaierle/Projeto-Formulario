@@ -6,7 +6,7 @@
           class="headline d-flex justify-center align-center flex-column"
           style="height: 80vh; width: 100%"
         >
-          <v-icon size="80">mdi-cart-off</v-icon>
+          <v-icon size="80" class="mb-5">mdi-cart-off</v-icon>
           Não há produtos no carrinho
         </p>
       </template>
@@ -17,6 +17,7 @@
               :cols="$vuetify.breakpoint.mdAndUp ? 12 : 12"
               v-for="(cartProduct, index) in $cart.cart"
               :key="index"
+              class="pt-0"
             >
               <v-card class="rounded-xl pa-2" elevation="4">
                 <v-card-title>
@@ -83,6 +84,7 @@
                 ><v-btn
                   class="btn-primary"
                   color="green"
+                  :loading="$cart.finish_button"
                   rounded
                   @click="$cart.finishOrder()"
                   >Finalizar pedido</v-btn
@@ -135,6 +137,7 @@
               class="btn-primary"
               color="green"
               rounded
+              :loading="$cart.finish_button"
               @click="$cart.finishOrder()"
               >Finalizar pedido</v-btn
             ></v-card-actions
