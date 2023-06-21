@@ -24,7 +24,7 @@
           class="mt-10 table-body"
         >
           <template v-slot:item.pedidoData="{ item }">
-            {{ item.pedidoData | formatDate("DD/MM/YYYY") }}
+            {{ item.pedidoData | formatDate("DD/MM/YYYY HH:mm:ss") }}
           </template>
           <template v-slot:item.actions="{ item }" class="table-actions">
             <v-btn

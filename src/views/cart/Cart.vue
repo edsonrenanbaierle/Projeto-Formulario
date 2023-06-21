@@ -65,7 +65,7 @@
                     @click="paymentMethods('PIX')"
                     class="btn-primary mb-3"
                     :color="activePix ? 'green' : 'grey'"
-                    ><v-icon>mdi-contactless-payment</v-icon></v-btn
+                    ><v-icon>mdi-qrcode-scan</v-icon></v-btn
                   >
                   <span class="body-1">Pix</span>
                 </div>
@@ -117,7 +117,7 @@
                 @click="paymentMethods('PIX')"
                 class="btn-primary mb-3"
                 :color="activePix ? 'green' : 'grey'"
-                ><v-icon>mdi-contactless-payment</v-icon></v-btn
+                ><v-icon>mdi-qrcode-scan</v-icon></v-btn
               >
               <span class="body-1">Pix</span>
             </div>
