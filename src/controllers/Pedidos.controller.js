@@ -3,6 +3,7 @@ import {
   buscarPedidos,
   excluirPedido,
   buscarPedidoPorId,
+  buscarPedidosDetalhes,
 } from "@/api/pedidoApi";
 
 Vue.prototype.$pedidos_controller = new Vue({
@@ -16,9 +17,17 @@ Vue.prototype.$pedidos_controller = new Vue({
       loading_btn: false,
       loading_table: false,
       loading_table_details: false,
+      loading_relatorio: false,
     };
   },
   methods: {
+    getReport() {
+      this.loading_relatorio = true;
+      buscarPedidosDetalhes().then((res) => {
+        this.relatorio = res.data;
+        this.loading_relatorio = false;
+      });
+    },
     getpedidos() {
       this.loading_table = true;
       buscarPedidos().then((res) => {
