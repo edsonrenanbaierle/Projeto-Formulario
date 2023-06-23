@@ -7,6 +7,18 @@
         <div class="mb-10 d-flex justify-center">
           <h1>Meus Pedidos</h1>
         </div>
+        <div style="width: 100%" class="d-flex justify-end">
+          <v-btn
+            :loading="$pedidos_controller.loading_relatorio"
+            color="green"
+            rounded
+            class="btn-primary"
+            @click="exportToCSV"
+          >
+            <v-icon>mdi-file-download</v-icon>
+            Exportar para CSV
+          </v-btn>
+        </div>
         <v-data-table
           :headers="headersPedido"
           :items="$pedidos_controller.pedidos"
@@ -77,6 +89,7 @@ export default {
   },
   mounted() {
     this.$pedidos_controller.getpedidos();
+    this.$pedidos_controller.getReport();
   },
   destroyed() {
     this.$pedidos_controller.pedidos = [];

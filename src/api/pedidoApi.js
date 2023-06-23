@@ -11,6 +11,10 @@ export function buscarPedidoPorId(pedidoId) {
   const url = `${baseUrl}/pedidos/${pedidoId}`;
   return axios.get(url);
 }
+export function buscarPedidosDetalhes() {
+  const url = `${baseUrl}/pedidos/detalhes`;
+  return axios.get(url);
+}
 
 export function adicionarPedido(dadosPedido) {
   const formaPagamento = dadosPedido[0].forma_pag;

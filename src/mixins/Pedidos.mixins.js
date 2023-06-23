@@ -64,5 +64,55 @@ export default {
       this.$pedidos_controller.openDetails = true;
       this.$pedidos_controller.getPedidoById(id);
     },
+    exportToCSV() {
+      const filename = "produtos.csv";
+      // const csvData = this.convertToCSV(this.$pedidos_controller.pedidos);
+      const csvData = this.convertToCSV(this.$pedidos_controller.relatorio);
+      const blob = new Blob([csvData], { type: "text/csv;charset=utf-8;" });
+
+      // Verifica se o navegador é compatível com o método de download
+      if (navigator.msSaveBlob) {
+        // Internet Explorer
+        navigator.msSaveBlob(blob, filename);
+      } else {
+        // Outros navegadores
+        const link = document.createElement("a");
+        if (link.download !== undefined) {
+          // Define o link para o arquivo CSV
+          const url = URL.createObjectURL(blob);
+          link.setAttribute("href", url);
+          link.setAttribute("download", filename);
+          link.style.visibility = "hidden";
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        }
+      }
+    },
+    convertToCSV(data) {
+      const separator = ",";
+      const keys = Object.keys(data[0]);
+      const headerRow = keys.join(separator);
+      console.log(data);
+
+      const rows = data.map((item) => {
+        return keys
+          .map((key) => {
+            const cellValue = item[key];
+
+            if (typeof cellValue === "object" && cellValue !== null) {
+              const stringJson = JSON.stringify(cellValue);
+              const escapedValue = stringJson.replace(/"/g, '""');
+              return `"${escapedValue}"`;
+            } else {
+              const escapedValue = cellValue.toString().replace(/"/g, '""');
+              return `"${escapedValue}"`;
+            }
+          })
+          .join(separator);
+      });
+
+      return `${headerRow}\n${rows.join("\n")}`;
+    },
   },
 };
