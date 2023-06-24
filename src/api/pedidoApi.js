@@ -1,42 +1,47 @@
-import axios from "axios";
+//pasta de controle dos pedidos //
+import axios from "axios"; //importação da biblioteca axios para facilitar os gets, push
 
+//Recebe a url da Api para ter acesso
 const baseUrl = process.env.VUE_APP_BASE_API;
 
+//Função de busca de pedidos, utilizado o export default para poder usar na aplicação
 export function buscarPedidos() {
-  const url = `${baseUrl}/pedidos`;
-  return axios.get(url);
+  const url = `${baseUrl}/pedidos`; //controi a url a partir da base da api/pedidos para acessar
+  return axios.get(url); //realizada a requisição a partir da url e retorna uma promise
 }
 
+//função  de buscar pedido passando o id como paramentro
 export function buscarPedidoPorId(pedidoId) {
-  const url = `${baseUrl}/pedidos/${pedidoId}`;
-  return axios.get(url);
-}
-export function buscarPedidosDetalhes() {
-  const url = `${baseUrl}/pedidos/detalhes`;
-  return axios.get(url);
+  const url = `${baseUrl}/pedidos/${pedidoId}`; //cria a url para buscar o pedido através do id
+  return axios.get(url); //realizada a requisição a partir da url e retorna uma promise
 }
 
+//função no qual adiciona pedido recebendo como parametro os dados do pedido
 export function adicionarPedido(dadosPedido) {
-  const formaPagamento = dadosPedido[0].forma_pag;
-  const itens = [];
+  const formaPagamento = dadosPedido[0].forma_pag; //extrai a forma de pagamento no array na posição 0
+  const itens = []; //criação do array de itens
 
+  //percorrido os dados do pedido começando no segundo elemento
   for (let i = 1; i < dadosPedido.length; i++) {
-    const item = dadosPedido[i];
+    const item = dadosPedido[i]; //os elementos são armazenados na variavel item
     for (let j = 0; j < item.quantidade; j++) {
-      itens.push(item.produtoId);
+      //percorrido a quantidade de itens
+      itens.push(item.produtoId); //no array itens é feito um push com o id dos produtos do pedido
     }
   }
 
+  //tratamento para ir para a api/banco de dados em json
   const pedidoTratado = {
     itens: itens,
     tipoPagamento: formaPagamento,
   };
-  const url = `${baseUrl}/pedidos`;
-  console.warn(pedidoTratado);
-  return axios.post(url, pedidoTratado);
+  const url = `${baseUrl}/pedidos`; //criado a url para fazer o post
+  console.warn(pedidoTratado); //utilizado o warn para imprimir no navegador um aviso
+  return axios.post(url, pedidoTratado); //requisição para enviar a partir da url o pedido
 }
 
+//função de exclusão do pedido através do id
 export function excluirPedido(pedidoId) {
-  const url = `${baseUrl}/pedidos/${pedidoId}`;
-  return axios.delete(url);
+  const url = `${baseUrl}/pedidos/${pedidoId}`; //contrução da url conforme o id do produto
+  return axios.delete(url); //requisição do tipo delete para deletar o produto
 }

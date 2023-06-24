@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <!-- troca do tema -->
     <v-app-bar
       :color="isDark ? '#121212' : '#FFFFFF'"
       :elevation="elevation"
@@ -37,6 +38,7 @@
             <v-app-bar-nav-icon v-on="on" v-bind="attrs"></v-app-bar-nav-icon>
           </template>
           <v-list>
+            <!-- rota definida para a home -->
             <v-list-item link to="/">
               <v-list-item-icon>
                 <v-icon :color="isDark ? 'white' : 'black'">mdi-home</v-icon>
@@ -45,6 +47,7 @@
                 >Home</v-list-item-title
               >
             </v-list-item>
+            <!-- rota definida /products -->
             <v-list-item link to="/products">
               <v-list-item-icon>
                 <v-icon :color="isDark ? 'white' : 'black'">mdi-store</v-icon>
@@ -53,6 +56,7 @@
                 >Produtos</v-list-item-title
               >
             </v-list-item>
+            <!-- rota definida /relatorio-pedidos -->
             <v-list-item link to="/relatorio-pedidos">
               <v-list-item-icon>
                 <v-icon :color="isDark ? 'white' : 'black'"
@@ -129,13 +133,16 @@
 <script>
 export default {
   name: "NavbarComponent",
+  //dados
   data: () => ({
-    drawer: false,
+    drawer: false, //verifica se o menu lateral ou fechado
     elevation: 0,
-    logoImg: require("@/assets/logoCR.png"),
-    logoDARK: require("@/assets/logoDARK.png"),
+    logoImg: require("@/assets/logoCR.png"), //requicisão da loco light
+    logoDARK: require("@/assets/logoDARK.png"), //requicisão da loco dark
   }),
+  //define uma propriedade
   computed: {
+    //verifica se o tema atual é dark ou não
     isDark() {
       if (this.$vuetify.theme.dark) {
         return true;
@@ -143,25 +150,29 @@ export default {
       return false;
     },
   },
+  //utilizado para armazenar o tema
   updated() {
-    localStorage.setItem("userTheme", this.$vuetify.theme.dark);
+    localStorage.setItem("userTheme", this.$vuetify.theme.dark); //seta o tema no localstorage
   },
+  //executa codigos em momentos específicos
   mounted() {
-    window.addEventListener("scroll", this.handleScroll);
-    const theme = localStorage.getItem("userTheme");
-    this.$vuetify.theme.dark = JSON.parse(theme);
+    window.addEventListener("scroll", this.handleScroll); //evento que fica esperando o handleScroll
+    const theme = localStorage.getItem("userTheme"); //pega o tema do localStorage
+    this.$vuetify.theme.dark = JSON.parse(theme); //faz com que mesmo atualizando a página continue o mesmo tema
   },
   beforeDestroy() {
-    window.removeEventListener("scroll", this.handleScroll);
+    window.removeEventListener("scroll", this.handleScroll); //remove o event de handleScroll
   },
   methods: {
+    //metodo que cria o scroll
     handleScroll() {
-      this.elevation = window.scrollY > 0 ? 3 : 0;
+      this.elevation = window.scrollY > 0 ? 3 : 0; //cria o efeito de rolagem
     },
   },
 };
 </script>
 <style>
+/* estilos */
 .v-toolbar__content {
   padding: 0 !important;
 }

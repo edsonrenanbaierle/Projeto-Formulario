@@ -9,6 +9,7 @@
       <v-card-text>{{ message }}</v-card-text>
       <v-card-actions class="d-flex justify-end pr-0">
         <v-btn text @click="cancel" color="grey">Cancelar</v-btn>
+        <!-- adicionado evento de click, estilos e loading -->
         <v-btn
           rounded
           color="green"
@@ -24,6 +25,7 @@
 
 <script>
 export default {
+  //compartilhamento das informações para usar no modal
   props: {
     title: {
       type: String,
@@ -36,10 +38,10 @@ export default {
   },
   methods: {
     cancel() {
-      this.$emit("cancel");
+      this.$emit("cancel"); //cancela ação
     },
     confirm() {
-      this.$emit("confirm");
+      this.$emit("confirm"); //confirma ação
     },
   },
 };
