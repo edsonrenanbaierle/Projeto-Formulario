@@ -1,3 +1,4 @@
+//exportação do objeto displayHelpers, responsavel por ajustar o layout em diferentes tamanhos de tela
 export const displayHelpers = {
   computed: {
     xsOnly() {
@@ -21,4 +22,4 @@ export const displayHelpers = {
   },
 };
 
-export default displayHelpers;
+export default displayHelpers; //exportação para póder ser utilizado no resto do projeto

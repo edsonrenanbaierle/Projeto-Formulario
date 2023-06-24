@@ -1,6 +1,7 @@
 export default {
   data() {
     return {
+      //Informações que compõem a tabela na aba produtos
       headersProducts: [
         {
           text: "Nome do Produto",
@@ -30,10 +31,12 @@ export default {
     };
   },
   methods: {
+    //abrir o modal de detalhes do pedido da aba produtos, passando o tipo que é adição de produto ou editar um produto
     openModal(type, data) {
       this.$products_controller.openModal =
         !this.$products_controller.openModal;
       this.$products_controller.newOrEdit = type;
+      //se o tipo for edit segue nesta etapa
       if (type == "edit") {
         this.$products_controller.produto_id = data.produtoId;
         this.$products_controller.cadastro.produto = data.produtoDescricao;
@@ -42,6 +45,7 @@ export default {
         this.$products_controller.cadastro.categoria = data.categoria;
       }
     },
+    //abre o modal de delete passando o id da aba produtos
     openDeleteModal(produto_id) {
       this.$products_controller.openDelete =
         !this.$products_controller.openDelete;

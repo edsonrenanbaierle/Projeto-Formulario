@@ -57,14 +57,17 @@ export default {
       ],
     };
   },
+  //metodos responsaveis por abrir os modais
   methods: {
+    //model de delete dos pedidos
     openDeleteModal(id) {
       this.$pedidos_controller.openDelete = true;
       this.$pedidos_controller.sale_id = id;
     },
+    //model de detalhes dos pedidos
     openDetailModal(id) {
       this.$pedidos_controller.openDetails = true;
-      this.$pedidos_controller.getPedidoById(id);
+      this.$pedidos_controller.getPedidoById(id); //obter delhes do pedido a partir do id
     },
   },
 };

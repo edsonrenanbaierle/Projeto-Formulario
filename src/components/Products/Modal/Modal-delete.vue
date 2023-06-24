@@ -1,4 +1,6 @@
+<!-- modal de confirmação de deletação de produtos -->
 <template>
+  <!-- v-model ligado ao produoduto controller controla o estado de abertura e fechamento do modal -->
   <v-dialog
     v-model="$products_controller.openDelete"
     max-width="500px"
@@ -9,6 +11,7 @@
       <v-card-text>{{ message }}</v-card-text>
       <v-card-actions class="d-flex justify-end pr-0">
         <v-btn text @click="cancel" color="grey">Cancelar</v-btn>
+        <!-- loading ligado ao products controller que faz esse controle do botao -->
         <v-btn
           rounded
           color="green"
@@ -24,6 +27,7 @@
 
 <script>
 export default {
+  //mensagens e informações compostas no modal
   props: {
     title: {
       type: String,
@@ -36,10 +40,10 @@ export default {
   },
   methods: {
     cancel() {
-      this.$emit("cancel");
+      this.$emit("cancel"); //metodo ao clicar no botão de cancelar
     },
     confirm() {
-      this.$emit("confirm");
+      this.$emit("confirm"); //metodo ao clicar no botão de confirmar
     },
   },
 };

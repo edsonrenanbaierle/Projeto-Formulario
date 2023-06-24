@@ -1,20 +1,21 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
+import Vue from "vue"; //importação do vue
+import VueRouter from "vue-router"; //importação do vue-router responsavel pelas rotas
 // import HomeView from "../views/HomeView.vue";
-import baseLayout from "@/layouts/baseLayout.vue";
+import baseLayout from "@/layouts/baseLayout.vue"; //import do layout base
 
-Vue.use(VueRouter);
+Vue.use(VueRouter); //define viu router como plugin
 
+//definição das rotas
 const routes = [
   {
-    path: "/",
-    name: "",
-    component: baseLayout,
+    path: "/", //caminho
+    name: "", //nome
+    component: baseLayout, //nome do componente
     children: [
       {
-        name: "home",
-        path: "",
-        component: () => import("../views/HomeView.vue"),
+        name: "home", //nome
+        path: "", //caminho
+        component: () => import("../views/HomeView.vue"), //componente exportado
         meta: {
           requiresAuth: false,
         },

@@ -68,10 +68,11 @@
   </v-container>
 </template>
 <script>
-import pedidosMixins from "@/mixins/Pedidos.mixins";
+import pedidosMixins from "@/mixins/Pedidos.mixins"; //importação do pedidosMixins
 export default {
-  name: "pedidosRelatorios",
-  mixins: [pedidosMixins],
+  name: "pedidosRelatorios", //mome definido
+  mixins: [pedidosMixins], //mixin definido
+  //componentes importados
   components: {
     confirmationModal: () => import("@/components/Pedidos/Modal-delete.vue"),
     detalhesModal: () => import("@/components/Pedidos/Pedidos-detalhes.vue"),
@@ -83,16 +84,18 @@ export default {
     return {};
   },
   methods: {
+    //metodo que dispara um evento de click e atualiza pedidos_controller.openDelete para false responsavel pelo modal
     cancelAction() {
       this.$pedidos_controller.openDelete = false;
     },
   },
+  //Ao ser montado o Dom é chamado 2 funções
   mounted() {
-    this.$pedidos_controller.getpedidos();
-    this.$pedidos_controller.getReport();
+    this.$pedidos_controller.getpedidos(); //função que pedidos da pasta pedidos.controller
+    this.$pedidos_controller.getReport(); //função que pedidos da pasta pedidos.controller
   },
   destroyed() {
-    this.$pedidos_controller.pedidos = [];
+    this.$pedidos_controller.pedidos = []; //remove os itens de pedidos
   },
 };
 </script>

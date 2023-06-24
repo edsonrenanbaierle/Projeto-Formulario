@@ -1,4 +1,6 @@
+<!-- modal para adicionar produto/ alteração de produto -->
 <template>
+  <!-- controla abertura do modal -->
   <v-dialog
     :value="$products_controller.openModal"
     max-width="600px"
@@ -7,6 +9,7 @@
     <v-card class="rounded-xl pb-1">
       <v-toolbar color="green">
         <v-card-title class="title">
+          <!-- confere se é um novo produto na pasta de products controller, caso seja o titulo do modal recebe adicionar produto, senão alterar produto + o nome do produto -->
           <span class="text-h5 title">{{
             $products_controller.newOrEdit == "new"
               ? "Adicionar Produto"
@@ -14,6 +17,7 @@
           }}</span>
         </v-card-title>
       </v-toolbar>
+      <!-- impede o comportamento padrão do formulario e chama validateFormProduct-->
       <v-form
         @submit.prevent="validateFormProduct()"
         ref="form"
@@ -24,6 +28,7 @@
           <v-container>
             <v-row>
               <v-col cols="12">
+                <!-- pega o nome do produto da pasta products.controller -->
                 <v-text-field
                   label="Nome do Produto*"
                   required
@@ -34,6 +39,7 @@
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
+                <!-- traz as categorias da pasta de controle de produtos  e é carregado-->
                 <v-select
                   label="Categoria*"
                   outlined
@@ -47,6 +53,7 @@
                 ></v-select>
               </v-col>
               <v-col cols="12">
+                <!-- traz a valor do produto da pasta products controller  -->
                 <moneyInput
                   label="Preço do Produto"
                   outlined
@@ -61,7 +68,9 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
+          <!-- fecha o modal caso ele cancele -->
           <v-btn color="grey" text @click="closeModal()"> Cancelar </v-btn>
+          <!-- botão de loading caso o usuario aperte vai salvar e ira fechar o modal  -->
           <v-btn
             color="green"
             rounded
@@ -77,10 +86,11 @@
   </v-dialog>
 </template>
 <script>
-import moneyInput from "@/components/global/money-input.vue";
+import moneyInput from "@/components/global/money-input.vue"; //import da pasta money input que contem o input de money ajustado
 
 export default {
   name: "modalProducts",
+  //dados do input do form
   data() {
     return {
       options: {
@@ -94,28 +104,33 @@ export default {
       rulesCategoria: [(v) => !!v || "Insira uma categoria para o produto!"],
     };
   },
+  //definição do componente exportado
   components: {
     moneyInput,
   },
+  //o watch significa que fica esperando
   watch: {
     "$products_controller.openModal"() {
-      this.$refs.form.resetValidation();
+      this.$refs.form.resetValidation(); //redefine o estado de validação do formulário, limpa erro de validação existente
     },
   },
   methods: {
+    //se o usuario fechar o modal no botão de cancel
     closeModal() {
-      this.$products_controller.clearAllFields();
-      this.$refs.form.resetValidation();
-      this.$products_controller.openModal = false;
+      this.$products_controller.clearAllFields(); //limpa os campos do formulario
+      this.$refs.form.resetValidation(); //redefine o estado de validação do formulário, limpa erro de validação existente
+      this.$products_controller.openModal = false; //fecha o moda
     },
+    //metodo que aciona a validação do formulario, chamando na pasta  products.controller o validade form
     validateFormProduct() {
       if (this.$refs.form.validate()) {
         this.$products_controller.validateForm();
       }
     },
   },
+  //hooks que é executado após o elemento ser incerido no DOM
   mounted() {
-    this.$products_controller.getCategories();
+    this.$products_controller.getCategories(); //chama na pasta products o getCategorias
   },
 };
 </script>
