@@ -103,7 +103,7 @@ export default {
   },
   mounted() {
     this.$products_controller.getAllProducts();
-    if (localStorage.getItem("cachedCart").length > 0) {
+    if (localStorage.getItem("cachedCart")?.length > 0) {
       this.$cart.cart = JSON.parse(localStorage.getItem("cachedCart"));
     }
   },

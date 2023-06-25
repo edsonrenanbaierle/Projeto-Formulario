@@ -2,12 +2,19 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 // import HomeView from "../views/HomeView.vue";
 import baseLayout from "@/layouts/baseLayout.vue";
+import meta from "vue-meta";
 
 Vue.use(VueRouter);
+Vue.use(meta);
 
 const routes = [
   {
     path: "/",
+    name: "login",
+    component: () => import("../views/login/login.vue"),
+  },
+  {
+    path: "/home",
     name: "",
     component: baseLayout,
     children: [
@@ -16,7 +23,7 @@ const routes = [
         path: "",
         component: () => import("../views/HomeView.vue"),
         meta: {
-          requiresAuth: false,
+          requiresAuth: true,
         },
       },
     ],
@@ -31,7 +38,7 @@ const routes = [
         path: "",
         component: () => import("../views/cart/Cart.vue"),
         meta: {
-          requiresAuth: false,
+          requiresAuth: true,
         },
       },
     ],
@@ -46,7 +53,7 @@ const routes = [
         path: "",
         component: () => import("../views/products/Products.vue"),
         meta: {
-          requiresAuth: false,
+          requiresAuth: true,
         },
       },
     ],
@@ -61,7 +68,7 @@ const routes = [
         path: "",
         component: () => import("../views/relatorios/Pedidos-relatorio.vue"),
         meta: {
-          requiresAuth: false,
+          requiresAuth: true,
         },
       },
     ],
@@ -79,19 +86,17 @@ const router = new VueRouter({
   routes,
 });
 
-let isNavigating = false;
-
 router.beforeEach((to, from, next) => {
-  if (isNavigating) {
-    // Evita a navegação duplicada
-    return;
+  const token = localStorage.getItem("isAuth");
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (token) {
+      next();
+    } else {
+      next("/");
+    }
+  } else {
+    next();
   }
-
-  isNavigating = true;
-  next();
 });
 
-router.afterEach(() => {
-  isNavigating = false;
-});
 export default router;

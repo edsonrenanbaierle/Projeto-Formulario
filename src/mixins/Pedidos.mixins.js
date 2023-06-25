@@ -15,7 +15,7 @@ export default {
           width: 200,
         },
         {
-          text: "Data do Pedido",
+          text: "Data/Hora do Pedido",
           value: "pedidoData",
           align: "center",
           width: 200,
@@ -93,7 +93,6 @@ export default {
       const separator = ",";
       const keys = Object.keys(data[0]);
       const headerRow = keys.join(separator);
-      console.log(data);
 
       const rows = data.map((item) => {
         return keys

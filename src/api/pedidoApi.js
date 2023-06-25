@@ -32,7 +32,6 @@ export function adicionarPedido(dadosPedido) {
     tipoPagamento: formaPagamento,
   };
   const url = `${baseUrl}/pedidos`;
-  console.warn(pedidoTratado);
   return axios.post(url, pedidoTratado);
 }
 

@@ -37,23 +37,37 @@
             {{ item.produtoValor | moeda }}
           </template>
           <template v-slot:item.actions="{ item }">
-            <v-btn
-              class="mr-5"
-              icon
-              small
-              color="grey"
-              @click="openModal('edit', item)"
-            >
-              <v-icon> mdi-pencil </v-icon>
-            </v-btn>
-            <v-btn
-              icon
-              small
-              color="red"
-              @click="openDeleteModal(item.produtoId)"
-            >
-              <v-icon> mdi-delete </v-icon>
-            </v-btn>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ attrs, on }">
+                <v-btn
+                  class="mr-5"
+                  icon
+                  small
+                  v-bind="attrs"
+                  v-on="on"
+                  color="grey"
+                  @click="openModal('edit', item)"
+                >
+                  <v-icon> mdi-pencil </v-icon>
+                </v-btn>
+              </template>
+              <span>Editar</span>
+            </v-tooltip>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ attrs, on }">
+                <v-btn
+                  icon
+                  small
+                  v-bind="attrs"
+                  v-on="on"
+                  color="red"
+                  @click="openDeleteModal(item.produtoId)"
+                >
+                  <v-icon> mdi-delete </v-icon>
+                </v-btn>
+              </template>
+              <span>Remover</span>
+            </v-tooltip>
           </template>
         </v-data-table>
       </v-card>

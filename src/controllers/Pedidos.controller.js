@@ -11,6 +11,7 @@ Vue.prototype.$pedidos_controller = new Vue({
     return {
       pedidos: [],
       pedidos_detalhes: [],
+      total_pedido: 0,
       openDelete: false,
       openDetails: false,
       sale_id: "",
@@ -55,6 +56,9 @@ Vue.prototype.$pedidos_controller = new Vue({
       buscarPedidoPorId(id).then((res) => {
         let itens = res.data.itens;
         this.pedidos_detalhes = itens.map((item) => item.produto);
+        this.total_pedido = this.pedidos_detalhes.reduce((total, item) => {
+          return total + item.produtoValor;
+        }, 0);
         this.loading_table_details = false;
       });
     },

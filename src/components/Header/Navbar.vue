@@ -7,7 +7,7 @@
       app
       :class="$vuetify.breakpoint.mdAndUp ? 'navbar-desk' : ''"
     >
-      <v-toolbar-title @click="$router.push('/')" class="cursor-pointer"
+      <v-toolbar-title @click="$router.push('/home')" class="cursor-pointer"
         ><img
           :src="isDark ? logoDARK : logoImg"
           alt="logo"
@@ -37,7 +37,7 @@
             <v-app-bar-nav-icon v-on="on" v-bind="attrs"></v-app-bar-nav-icon>
           </template>
           <v-list>
-            <v-list-item link to="/">
+            <v-list-item link to="/home">
               <v-list-item-icon>
                 <v-icon :color="isDark ? 'white' : 'black'">mdi-home</v-icon>
               </v-list-item-icon>
@@ -61,6 +61,14 @@
               </v-list-item-icon>
               <v-list-item-title :class="isDark ? 'text-white' : ''"
                 >Meus Pedidos</v-list-item-title
+              >
+            </v-list-item>
+            <v-list-item link @click="logout">
+              <v-list-item-icon>
+                <v-icon :color="isDark ? 'white' : 'black'">mdi-logout</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title :class="isDark ? 'text-white' : ''"
+                >Sair</v-list-item-title
               >
             </v-list-item>
           </v-list>
@@ -92,7 +100,7 @@
         <v-icon color="white">mdi-close</v-icon>
       </v-btn>
       <v-list class="teste mt-10">
-        <v-list-item link to="/">
+        <v-list-item link to="/home">
           <v-list-item-icon>
             <v-icon color="white">mdi-home</v-icon>
           </v-list-item-icon>
@@ -121,6 +129,14 @@
           <v-list-item-title class="text-white">{{
             isDark ? "Tema Claro" : "Tema Escuro"
           }}</v-list-item-title>
+        </v-list-item>
+        <v-list-item link @click="logout">
+          <v-list-item-icon>
+            <v-icon :color="isDark ? 'white' : 'black'">mdi-logout</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title :class="isDark ? 'text-white' : ''"
+            >Sair</v-list-item-title
+          >
         </v-list-item>
       </template>
     </v-navigation-drawer>
@@ -157,6 +173,11 @@ export default {
   methods: {
     handleScroll() {
       this.elevation = window.scrollY > 0 ? 3 : 0;
+    },
+    logout() {
+      localStorage.removeItem("isAuth");
+      localStorage.removeItem("cachedCart");
+      this.$router.push("/");
     },
   },
 };

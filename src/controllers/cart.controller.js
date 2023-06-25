@@ -59,9 +59,8 @@ Vue.prototype.$cart = new Vue({
           this.$toast.error("Ocorreu um erro ao realizar o pedido!");
         })
         .finally(() => {
-          router.push({ path: "/" });
+          router.push({ path: "/home" });
         });
-      console.table(order);
     },
   },
 });
