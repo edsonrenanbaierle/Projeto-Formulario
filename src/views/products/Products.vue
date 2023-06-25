@@ -80,12 +80,13 @@
   </v-container>
 </template>
 <script>
-import ProductsMixins from "@/mixins/Products.mixins";
-import displayHelpers from "@/mixins/DIsplayHelpers";
+import ProductsMixins from "@/mixins/Products.mixins"; //importado o mixin da pasta mixins/produtos
+import displayHelpers from "@/mixins/DIsplayHelpers"; //importado o mixin da pasta mixins/DIsplayHelpers
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
-  name: "Produto",
-  mixins: [ProductsMixins, displayHelpers],
+  name: "Produto", //nome definido
+  mixins: [ProductsMixins, displayHelpers], //definição dos mixins
+  //inportação dos componentes
   components: {
     ModalProducts: () =>
       import("@/components/Products/Modal/Modal-products.vue"),
@@ -95,19 +96,22 @@ export default {
   metaInfo: {
     title: "Cadastro de Produtos | Comida de Rua",
   },
+  //dados
   data: () => ({
-    showModal: false,
+    showModal: false, //resposavel por definir se o modal está aberto ou não
   }),
   methods: {
+    //caso clique em cancel dispara o evento para mudar em products_controller.openDelete para false
     cancelAction() {
       this.$products_controller.openDelete = false;
     },
   },
+  //ao ser montado o dom é chamando a função getAllProducts
   mounted() {
     this.$products_controller.getAllProducts();
   },
   destroyed() {
-    this.$products_controller.all_products = [];
+    this.$products_controller.all_products = []; //limpa os produtos
   },
 };
 </script>

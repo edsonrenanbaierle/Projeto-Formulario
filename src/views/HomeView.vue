@@ -59,7 +59,7 @@
 
 <script>
 export default {
-  name: "homeView",
+  name: "homeView", //nome definido
   metaInfo: {
     title: "Produtos Disponíveis | Comida de Rua",
   },
@@ -67,9 +67,11 @@ export default {
     return {};
   },
   methods: {
+    //função que mostra que o produto foi adicionado
     showToast() {
       this.$toast.success("Produto adicionado");
     },
+    //função de incrementação do produto
     incrementProduct(index) {
       if (!this.$cart.item_amount[index]) {
         this.$cart.item_amount[index] = {
@@ -79,17 +81,20 @@ export default {
           quantidade: 0,
         };
       }
-      this.$cart.item_amount[index].quantidade++;
+      this.$cart.item_amount[index].quantidade++; //aumenta a quantidade do produto que ira ser vendido
     },
+    //Função que diminui a quantidade de produto que ira ser vendido
     decrementProduct(index) {
+      //verifica se a quantidade é maior que zero
       if (
         this.$cart.item_amount[index] &&
         this.$cart.item_amount[index].quantidade > 0
       ) {
-        this.$cart.item_amount[index].quantidade--;
+        this.$cart.item_amount[index].quantidade--; //decrementa a quantidade
       }
     },
   },
+  //observa as mudanças quando occore uma mudança na propriedade products_controller.all_products
   watch: {
     "$products_controller.all_products"() {
       const value = this.$products_controller.all_products.map((product) => ({
@@ -98,9 +103,10 @@ export default {
         produtoValor: product.produtoValor,
         quantidade: 0,
       }));
-      this.$cart.item_amount = value;
+      this.$cart.item_amount = value; //criação de um novo card a partir das propriedades definidas acima
     },
   },
+  //após elemento ser inserido no dom é chamado o montued
   mounted() {
     this.$products_controller.getAllProducts();
     if (localStorage.getItem("cachedCart")?.length > 0) {
@@ -108,10 +114,10 @@ export default {
     }
   },
   updated() {
-    localStorage.setItem("cachedCart", JSON.stringify(this.$cart.cart));
+    localStorage.setItem("cachedCart", JSON.stringify(this.$cart.cart)); //armazena os cards no localStorage
   },
   destroyed() {
-    this.$products_controller.all_products = [];
+    this.$products_controller.all_products = []; //limpa a variavel all_producs na pasta controllers/producs.controller
   },
 };
 </script>

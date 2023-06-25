@@ -160,11 +160,13 @@ export default {
   metaInfo: {
     title: "Carrinho | Comida de Rua",
   },
+  //dados
   data: () => ({
     activePix: false,
     activeMoney: false,
   }),
   methods: {
+    //guarda o metodo de pagamento
     paymentMethods(method) {
       this.$cart.tipo.forma_pag = method;
       if (method == "PIX") {
@@ -177,27 +179,34 @@ export default {
     },
   },
   computed: {
+    //valor total do pedido
     totalValue() {
-      let total = 0;
+      let total = 0; //inicializa em 0
+      //itera sobre os itens
       this.$cart.cart.forEach((item) => {
-        total += item.produtoValor * item.quantidade;
+        total += item.produtoValor * item.quantidade; //faz o calculo de soma do valores
       });
-      return total;
+      return total; //retorna o total
     },
+    //metodo de quantidade de itens
     quantityItems() {
-      let total = 0;
+      let total = 0; //definição do contador
+      //itera sobre os cart passando o items como paramentro
       this.$cart.cart.forEach((item) => {
-        total += item.quantidade;
+        total += item.quantidade; //faz a soma de quantidade
       });
-      return total;
+      return total; //retorna o total
     },
   },
+  //chamado após uma atualização ocorrer
   updated() {
-    localStorage.setItem("cachedCart", JSON.stringify(this.$cart.cart));
+    localStorage.setItem("cachedCart", JSON.stringify(this.$cart.cart)); //responsavel por armazenar o estado do carrinho no local storage
   },
+  // chamado após ser montado o Dom
   mounted() {
+    //verifica se tem itens
     if (localStorage.getItem("cachedCart").length > 0) {
-      this.$cart.cart = JSON.parse(localStorage.getItem("cachedCart"));
+      this.$cart.cart = JSON.parse(localStorage.getItem("cachedCart")); //recuperado os itens do localstorage
     }
   },
   destroyed() {

@@ -1,6 +1,7 @@
 export default {
   data() {
     return {
+      //Informações que compõem a tabela principal na aba meus pedidos
       headersPedido: [
         {
           text: "Pedido",
@@ -27,6 +28,7 @@ export default {
           width: 200,
         },
       ],
+      //Informações que compõem a tabela de detalhe do pedido na aba meus pedidos
       headersPedidoDetalhe: [
         {
           text: "ID",
@@ -55,11 +57,14 @@ export default {
       ],
     };
   },
+  //metodos responsaveis por abrir os modais
   methods: {
+    //model de delete dos pedidos
     openDeleteModal(id) {
       this.$pedidos_controller.openDelete = true;
       this.$pedidos_controller.sale_id = id;
     },
+    //model de detalhes dos pedidos
     openDetailModal(id) {
       this.$pedidos_controller.openDetails = true;
       this.$pedidos_controller.getPedidoById(id);

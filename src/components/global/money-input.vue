@@ -1,4 +1,6 @@
+<!-- input para money -->
 <template>
+  <!-- campo de texto personalizado usando o Vuetify -->
   <v-text-field
     v-model="cmpValue"
     v-bind:label="label"
@@ -23,35 +25,43 @@
 <script>
 export default {
   model: {
-    prop: "value",
-    event: "input",
+    //configuração de dados entre o componente personalizado e o valor fornecido externamente a ele
+    prop: "value", //define o nome da propriedade que recebera o valor
+    event: "input", //evento emitido pelo componente, assim sabendo quando ocorreu uma mudança no valor
   },
   props: {
+    //declara as propriedades que podem ser passadas para o componente como valores externos
     value: {
       type: [String, Number],
-      default: "0",
+      default: "0", //define valor padrão para o value
     },
     label: {
+      //espera recerber um label com o type string e valor padrão vazio
       type: String,
       default: "",
     },
     placeholder: {
+      //espera receber um placeholder
       type: String,
       default: undefined,
     },
     readonly: {
+      //Espera um reandonly e como está false é permitido o edit, em caso de true apenas leitura do usuario
       type: Boolean,
       default: false,
     },
     dense: {
+      //estilo de densidade do campo de texto
       type: Boolean,
       default: false,
     },
     error: {
+      //mostrar se no campo de texto está indentificado um erro, está como false
       type: Boolean,
       default: false,
     },
     errorMessages: {
+      //exibir mensagem de erro
       type: [Array, String],
       default: () => [],
     },
@@ -96,7 +106,7 @@ export default {
       default: "",
     },
   },
-  data: () => ({}),
+  data: () => ({}), //retorna um objeto vazio
   computed: {
     cmpValue: {
       get: function () {
@@ -110,17 +120,21 @@ export default {
     },
   },
   methods: {
+    //metodo para formatação de numero
     humanFormat: function (number) {
       if (isNaN(number)) {
-        number = "";
+        //verifica se não é um número válido
+        number = ""; //se for o numero recebe vazio
       } else {
         number = Number(number).toLocaleString(this.options.locale, {
-          maximumFractionDigits: this.options.precision,
-          minimumFractionDigits: this.options.precision,
+          //senão o numero é convertido para number e em seguida aberto o toLocaleString para formatalo com as opções fornecidas
+          maximumFractionDigits: this.options.precision, //controla o maximo de números
+          minimumFractionDigits: this.options.precision, //controla o minimo de números
         });
       }
-      return number;
+      return number; //retorna o numero formatado
     },
+    //formatar um número em representação numerica de máquina, passando o numero como parametro do vuetify
     machineFormat(number) {
       if (number) {
         number = this.cleanNumber(number);
@@ -147,6 +161,7 @@ export default {
       return number;
     },
     keyPress($event) {
+      //manipulador de eventos, para lidar com o evento ao clicar
       let keyCode = $event.keyCode ? $event.keyCode : $event.which;
       if (keyCode < 48 || keyCode > 57) {
         $event.preventDefault();
@@ -155,6 +170,7 @@ export default {
         $event.preventDefault();
       }
     },
+    //metodo responsável por limpar o número removendo os zeros à esquerda
     cleanNumber: function (value) {
       let result = "";
       if (value) {
@@ -176,6 +192,7 @@ export default {
       }
       return result;
     },
+    //verifica se o número é inteiro
     isInteger(value) {
       let result = false;
       if (Number.isInteger(parseInt(value))) {
@@ -183,6 +200,7 @@ export default {
       }
       return result;
     },
+    //verifica o comprimento não foi ultrapassado
     targetLength() {
       if (
         Number(this.cleanNumber(this.value).length) >=

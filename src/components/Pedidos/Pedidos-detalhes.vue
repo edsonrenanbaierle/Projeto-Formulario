@@ -50,10 +50,10 @@
   </v-dialog>
 </template>
 <script>
-import PedidosMixins from "@/mixins/Pedidos.mixins";
+import PedidosMixins from "@/mixins/Pedidos.mixins"; //importação dos componentes para compor os componentes da tabela
 
 export default {
-  name: "pedidosDetalhes",
+  name: "pedidosDetalhes", //nome da pasta
   mixins: [PedidosMixins],
   methods: {
     closeModal() {
