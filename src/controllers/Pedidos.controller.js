@@ -12,12 +12,13 @@ import {
 Vue.prototype.$pedidos_controller = new Vue({
   data() {
     return {
-      pedidos: [], //array com os pedidos
-      pedidos_detalhes: [], //array com os detalhes do pedido
-      openDelete: false, //Abre a exclusão do pedido
-      openDetails: false, //Abre os detalhes do pedido
-      sale_id: "", //id da venda
-      loading_btn: false, //botaão de lodin
+      pedidos: [],
+      pedidos_detalhes: [],
+      total_pedido: 0,
+      openDelete: false,
+      openDetails: false,
+      sale_id: "",
+      loading_btn: false,
       loading_table: false,
       loading_table_details: false,
       loading_relatorio: false,
@@ -65,9 +66,12 @@ Vue.prototype.$pedidos_controller = new Vue({
       this.loading_table_details = true; //loading definido como true
       //chama a funçao exportada da pasta api/pedidoApi passando o id, espera o retorno
       buscarPedidoPorId(id).then((res) => {
-        let itens = res.data.itens; //recebe os dados do pedido
-        this.pedidos_detalhes = itens.map((item) => item.produto); //percorre o array pedidos_detalhe retornando com o map os itens
-        this.loading_table_details = false; //loading definido como false
+        let itens = res.data.itens;
+        this.pedidos_detalhes = itens.map((item) => item.produto);
+        this.total_pedido = this.pedidos_detalhes.reduce((total, item) => {
+          return total + item.produtoValor;
+        }, 0);
+        this.loading_table_details = false;
       });
     },
   },

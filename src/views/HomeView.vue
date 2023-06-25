@@ -108,10 +108,9 @@ export default {
   },
   //após elemento ser inserido no dom é chamado o montued
   mounted() {
-    this.$products_controller.getAllProducts(); //chama a função getAllProducts da pasta controller
-    //verifica se a itens no localstorage (carrinho)
-    if (localStorage.getItem("cachedCart").length > 0) {
-      this.$cart.cart = JSON.parse(localStorage.getItem("cachedCart")); // a variavel na pasta controllers/cart.controllers recebe o json do localstorage convertido para um objeto
+    this.$products_controller.getAllProducts();
+    if (localStorage.getItem("cachedCart")?.length > 0) {
+      this.$cart.cart = JSON.parse(localStorage.getItem("cachedCart"));
     }
   },
   updated() {

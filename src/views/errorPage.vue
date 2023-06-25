@@ -4,7 +4,7 @@
       <v-col cols="6">
         <img src="../assets/error.svg" alt="error" />
         <div class="text-center mt-5">
-          <v-btn color="green" rounded class="btn-primary" x-large to="/">
+          <v-btn color="green" rounded class="btn-primary" x-large to="/home">
             Voltar
           </v-btn>
         </div>

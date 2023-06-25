@@ -1,23 +1,29 @@
-import Vue from "vue"; //importação do vue
-import VueRouter from "vue-router"; //importação do vue-router responsavel pelas rotas
+import Vue from "vue";
+import VueRouter from "vue-router";
 // import HomeView from "../views/HomeView.vue";
-import baseLayout from "@/layouts/baseLayout.vue"; //import do layout base
+import baseLayout from "@/layouts/baseLayout.vue";
+import meta from "vue-meta";
 
-Vue.use(VueRouter); //define viu router como plugin
+Vue.use(VueRouter);
+Vue.use(meta);
 
-//definição das rotas
 const routes = [
   {
-    path: "/", //caminho
-    name: "", //nome
-    component: baseLayout, //nome do componente
+    path: "/",
+    name: "login",
+    component: () => import("../views/login/login.vue"),
+  },
+  {
+    path: "/home",
+    name: "",
+    component: baseLayout,
     children: [
       {
-        name: "home", //nome
-        path: "", //caminho
-        component: () => import("../views/HomeView.vue"), //componente exportado
+        name: "home",
+        path: "",
+        component: () => import("../views/HomeView.vue"),
         meta: {
-          requiresAuth: false,
+          requiresAuth: true,
         },
       },
     ],
@@ -32,7 +38,7 @@ const routes = [
         path: "",
         component: () => import("../views/cart/Cart.vue"),
         meta: {
-          requiresAuth: false,
+          requiresAuth: true,
         },
       },
     ],
@@ -47,7 +53,7 @@ const routes = [
         path: "",
         component: () => import("../views/products/Products.vue"),
         meta: {
-          requiresAuth: false,
+          requiresAuth: true,
         },
       },
     ],
@@ -62,7 +68,7 @@ const routes = [
         path: "",
         component: () => import("../views/relatorios/Pedidos-relatorio.vue"),
         meta: {
-          requiresAuth: false,
+          requiresAuth: true,
         },
       },
     ],
@@ -80,19 +86,17 @@ const router = new VueRouter({
   routes,
 });
 
-let isNavigating = false;
-
 router.beforeEach((to, from, next) => {
-  if (isNavigating) {
-    // Evita a navegação duplicada
-    return;
+  const token = localStorage.getItem("isAuth");
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (token) {
+      next();
+    } else {
+      next("/");
+    }
+  } else {
+    next();
   }
-
-  isNavigating = true;
-  next();
 });
 
-router.afterEach(() => {
-  isNavigating = false;
-});
 export default router;

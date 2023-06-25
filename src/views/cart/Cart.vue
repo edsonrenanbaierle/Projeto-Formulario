@@ -58,6 +58,10 @@
                 Total: {{ totalValue | moeda }} <br />
                 Produtos: {{ $cart.cart.length }}
               </v-card-text>
+              <v-card-text
+                class="body-1 text-center font-weight-black pb-0 mt-2"
+                >Forma de Pagamento</v-card-text
+              >
               <div class="d-flex">
                 <div class="d-flex flex-column align-center mr-8">
                   <v-btn
@@ -82,7 +86,7 @@
               </div>
               <v-card-actions
                 ><v-btn
-                  class="btn-primary"
+                  class="btn-primary pa-4"
                   color="green"
                   :loading="$cart.finish_button"
                   rounded
@@ -110,6 +114,9 @@
             Total: {{ totalValue | moeda }} <br />
             Produtos: {{ $cart.cart.length }}
           </v-card-text>
+          <v-card-text class="body-1 text-center font-weight-black pb-0 mt-2"
+            >Forma de Pagamento</v-card-text
+          >
           <div class="d-flex">
             <div class="d-flex flex-column align-center mr-8">
               <v-btn
@@ -134,7 +141,7 @@
           </div>
           <v-card-actions
             ><v-btn
-              class="btn-primary"
+              class="btn-primary pa-4"
               color="green"
               rounded
               :loading="$cart.finish_button"
@@ -201,6 +208,9 @@ export default {
     if (localStorage.getItem("cachedCart").length > 0) {
       this.$cart.cart = JSON.parse(localStorage.getItem("cachedCart")); //recuperado os itens do localstorage
     }
+  },
+  destroyed() {
+    this.$cart.tipo.forma_pag = "";
   },
 };
 </script>

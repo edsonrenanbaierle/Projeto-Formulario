@@ -2,7 +2,7 @@
 import Vue from "vue"; //importaçãp do vue
 import { adicionarPedido } from "@/api/pedidoApi"; //importação do adicionar pedido da api/pedido
 import router from "@/router"; //importação do router
-import Swal from "sweetalert2"; //importação da biblioteca Swal
+// import Swal from "sweetalert2"; //importação da biblioteca Swal
 
 //criação de uma nova instancia que pode ser utilizada no código vue prototype.$cart
 Vue.prototype.$cart = new Vue({
@@ -65,7 +65,8 @@ Vue.prototype.$cart = new Vue({
         //espera a resposta
         .then(() => {
           this.finish_button = false; //botão de venda é definido com false
-          Swal.fire("", "Pedido Realizado com sucesso!", "success"); //notificação de sucesso exibita
+          // Swal.fire("", "Pedido Realizado com sucesso!", "success"); //notificação de sucesso exibita
+          this.$toast.success("Pedido Realizado com sucesso!");
           this.cart = []; //o array cart é resetado
           this.tipo.forma_pag = ""; // forma de pagamento retorna a vazio
         })
@@ -76,9 +77,8 @@ Vue.prototype.$cart = new Vue({
         })
         //executado a função finally independente de qualquer coisa
         .finally(() => {
-          router.push({ path: "/" }); //faz retornar para o menu
+          router.push({ path: "/home" });
         });
-      console.table(order);
     },
   },
 });

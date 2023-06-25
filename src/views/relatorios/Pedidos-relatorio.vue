@@ -21,7 +21,7 @@
         </div>
         <v-data-table
           :headers="headersPedido"
-          :items="$pedidos_controller.pedidos"
+          :items="orderTable"
           :loading="$pedidos_controller.loading_table"
           :items-per-page="10"
           :header-props="{
@@ -36,26 +36,40 @@
           class="mt-10 table-body"
         >
           <template v-slot:item.pedidoData="{ item }">
-            {{ item.pedidoData | formatDate("DD/MM/YYYY HH:mm:ss") }}
+            {{ item.pedidoData | formatDateUTCMinus3("DD/MM/YYYY HH:mm") }}
           </template>
           <template v-slot:item.actions="{ item }" class="table-actions">
-            <v-btn
-              icon
-              small
-              color="grey"
-              @click="openDetailModal(item.idPedido)"
-              class="mr-5"
-            >
-              <v-icon> mdi-book-open </v-icon>
-            </v-btn>
-            <v-btn
-              icon
-              small
-              color="red"
-              @click="openDeleteModal(item.idPedido)"
-            >
-              <v-icon> mdi-delete </v-icon>
-            </v-btn>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ attrs, on }">
+                <v-btn
+                  icon
+                  small
+                  v-bind="attrs"
+                  v-on="on"
+                  color="grey"
+                  @click="openDetailModal(item.idPedido)"
+                  class="mr-5"
+                >
+                  <v-icon> mdi-book-open </v-icon>
+                </v-btn>
+              </template>
+              <span>Detalhes</span>
+            </v-tooltip>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ attrs, on }">
+                <v-btn
+                  icon
+                  small
+                  v-on="on"
+                  v-bind="attrs"
+                  color="red"
+                  @click="openDeleteModal(item.idPedido)"
+                >
+                  <v-icon> mdi-delete </v-icon>
+                </v-btn>
+              </template>
+              <span>Cancelar</span>
+            </v-tooltip>
           </template>
         </v-data-table>
       </v-card>
@@ -68,7 +82,8 @@
   </v-container>
 </template>
 <script>
-import pedidosMixins from "@/mixins/Pedidos.mixins"; //importação do pedidosMixins
+import pedidosMixins from "@/mixins/Pedidos.mixins";
+import _ from "lodash";
 export default {
   name: "pedidosRelatorios", //mome definido
   mixins: [pedidosMixins], //mixin definido
@@ -87,6 +102,11 @@ export default {
     //metodo que dispara um evento de click e atualiza pedidos_controller.openDelete para false responsavel pelo modal
     cancelAction() {
       this.$pedidos_controller.openDelete = false;
+    },
+  },
+  computed: {
+    orderTable() {
+      return _.orderBy(this.$pedidos_controller.pedidos, ["idPedido"], "desc");
     },
   },
   //Ao ser montado o Dom é chamado 2 funções

@@ -17,3 +17,9 @@ Vue.filter("formatDate", function (value, format) {
   if (!value) return "";
   return moment(value).format(format);
 });
+
+Vue.filter("formatDateUTCMinus3", function (value, format) {
+  if (!value) return "";
+  const date = moment(value).subtract(3, "hours").toDate();
+  return moment(date).format(format);
+});

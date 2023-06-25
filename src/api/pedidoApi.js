@@ -15,6 +15,10 @@ export function buscarPedidoPorId(pedidoId) {
   const url = `${baseUrl}/pedidos/${pedidoId}`; //cria a url para buscar o pedido através do id
   return axios.get(url); //realizada a requisição a partir da url e retorna uma promise
 }
+export function buscarPedidosDetalhes() {
+  const url = `${baseUrl}/pedidos/detalhes`;
+  return axios.get(url);
+}
 
 //função no qual adiciona pedido recebendo como parametro os dados do pedido
 export function adicionarPedido(dadosPedido) {
@@ -35,9 +39,8 @@ export function adicionarPedido(dadosPedido) {
     itens: itens,
     tipoPagamento: formaPagamento,
   };
-  const url = `${baseUrl}/pedidos`; //criado a url para fazer o post
-  console.warn(pedidoTratado); //utilizado o warn para imprimir no navegador um aviso
-  return axios.post(url, pedidoTratado); //requisição para enviar a partir da url o pedido
+  const url = `${baseUrl}/pedidos`;
+  return axios.post(url, pedidoTratado);
 }
 
 //função de exclusão do pedido através do id
