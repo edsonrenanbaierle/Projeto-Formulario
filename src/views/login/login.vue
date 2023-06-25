@@ -25,14 +25,14 @@
             </v-row>
             <v-form ref="form" lazy-validation @submit.prevent="login()">
               <v-text-field
-                label="Email"
+                label="Usuário"
                 type="email"
                 name="email"
                 autocomplete
                 outlined
                 rounded
                 validate-on-blur
-                :rules="rulesEmail"
+                :rules="rulesUsuario"
               ></v-text-field>
               <v-text-field
                 label="Senha"
@@ -78,7 +78,7 @@ export default {
   },
   data: () => ({
     passType: true,
-    rulesEmail: [(v) => v == "gastronomia123" || "Email incorreto!"],
+    rulesUsuario: [(v) => v == "gastronomia123" || "Usuário incorreto!"],
     rulesSenha: [(v) => v == "comida321" || "Senha incorreta!"],
     logoImg: require("@/assets/logoCR.png"),
     logoDARK: require("@/assets/logoDARK.png"),

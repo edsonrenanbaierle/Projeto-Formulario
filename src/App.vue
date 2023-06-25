@@ -31,6 +31,11 @@ export default {
       return false;
     },
   },
+  mounted() {
+    if (localStorage.getItem("isAuth")) {
+      this.$router.push("/home");
+    }
+  },
 };
 </script>
 <style>
