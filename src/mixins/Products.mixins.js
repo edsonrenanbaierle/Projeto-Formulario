@@ -34,9 +34,9 @@ export default {
     //abrir o modal de detalhes do pedido da aba produtos, passando o tipo que é adição de produto ou editar um produto
     openModal(type, data) {
       this.$products_controller.openModal =
-        !this.$products_controller.openModal;
+        !this.$products_controller.openModal; //faz receber o contrario, ou seja se estiver fechado abre ou o contrario
       this.$products_controller.newOrEdit = type;
-      //se o tipo for edit segue nesta etapa
+      //se o tipo for edit segue nesta etapa, e faz receber os valores
       if (type == "edit") {
         this.$products_controller.produto_id = data.produtoId;
         this.$products_controller.cadastro.produto = data.produtoDescricao;
@@ -48,7 +48,7 @@ export default {
     //abre o modal de delete passando o id da aba produtos
     openDeleteModal(produto_id) {
       this.$products_controller.openDelete =
-        !this.$products_controller.openDelete;
+        !this.$products_controller.openDelete; //faz receber o contrario, ou seja se estiver fechado abre ou o contrario
       this.$products_controller.produto_id = produto_id;
     },
   },

@@ -24,6 +24,7 @@ export default {
   }),
   methods: {},
   computed: {
+    //verifica se o tema é dark ou não
     isDark() {
       if (this.$vuetify.theme.dark) {
         return true;
@@ -31,6 +32,7 @@ export default {
       return false;
     },
   },
+  //se for possivel pegar a autenticação vai para a pagina principal do site
   mounted() {
     if (localStorage.getItem("isAuth")) {
       this.$router.push("/home");

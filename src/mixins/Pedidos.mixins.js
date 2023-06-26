@@ -94,29 +94,32 @@ export default {
         }
       }
     },
+    //função que converte um array data para csv
     convertToCSV(data) {
-      const separator = ",";
-      const keys = Object.keys(data[0]);
+      const separator = ","; //separador de campos
+      const keys = Object.keys(data[0]); //obtem as propriedades do primeiro objeto
       const headerRow = keys.join(separator);
 
+      //itera sobre os itens do array e retorna um novo array rows
       const rows = data.map((item) => {
         return keys
           .map((key) => {
-            const cellValue = item[key];
+            const cellValue = item[key]; //obtem o valor da celula correspondente a chave atual iterada
 
+            //verifica se é um objeto e não é nullo
             if (typeof cellValue === "object" && cellValue !== null) {
-              const stringJson = JSON.stringify(cellValue);
-              const escapedValue = stringJson.replace(/"/g, '""');
-              return `"${escapedValue}"`;
+              const stringJson = JSON.stringify(cellValue); //converte para json
+              const escapedValue = stringJson.replace(/"/g, '""'); //troca aspas '' por ""
+              return `"${escapedValue}"`; //retorna o valor entre aspas ""
             } else {
-              const escapedValue = cellValue.toString().replace(/"/g, '""');
-              return `"${escapedValue}"`;
+              const escapedValue = cellValue.toString().replace(/"/g, '""'); //converte para string
+              return `"${escapedValue}"`; //retorna o valor entre aspas ""
             }
           })
-          .join(separator);
+          .join(separator); //junta com o separador de linha
       });
 
-      return `${headerRow}\n${rows.join("\n")}`;
+      return `${headerRow}\n${rows.join("\n")}`; //retorna o cabeçalho e as linhas do Csv
     },
   },
 };

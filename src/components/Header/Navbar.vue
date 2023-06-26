@@ -8,6 +8,7 @@
       app
       :class="$vuetify.breakpoint.mdAndUp ? 'navbar-desk' : ''"
     >
+      <!-- logo do comida de rua que ao clicar retorna ao home -->
       <v-toolbar-title @click="$router.push('/home')" class="cursor-pointer"
         ><img
           :src="isDark ? logoDARK : logoImg"
@@ -22,6 +23,7 @@
             isDark ? "mdi-weather-sunny" : "mdi-weather-night"
           }}</v-icon></v-btn
         > -->
+        <!-- cart do carrinho de compra -->
         <v-btn icon class="mr-2" to="/checkout">
           <v-icon>mdi-cart</v-icon>
           <v-badge
@@ -33,6 +35,7 @@
             v-if="$cart.cart.length > 0"
           ></v-badge>
         </v-btn>
+        <!-- drop down do site com home/produtos/meus pedidos e sair  -->
         <v-menu rounded="lg" offset-y>
           <template v-slot:activator="{ attrs, on }">
             <v-app-bar-nav-icon v-on="on" v-bind="attrs"></v-app-bar-nav-icon>
@@ -66,6 +69,7 @@
                 >Meus Pedidos</v-list-item-title
               >
             </v-list-item>
+            <!-- evento para sair do site -->
             <v-list-item link @click="logout">
               <v-list-item-icon>
                 <v-icon :color="isDark ? 'white' : 'black'">mdi-logout</v-icon>
@@ -77,6 +81,7 @@
           </v-list>
         </v-menu>
       </div>
+      <!-- quando o site estiver sendo exibido em mobile -->
       <div v-else>
         <v-btn icon class="ml-2" to="/checkout">
           <v-icon>mdi-cart</v-icon>
@@ -147,7 +152,7 @@
 </template>
 <script>
 export default {
-  name: "NavbarComponent",
+  name: "NavbarComponent", //nome do componente
   //dados
   data: () => ({
     drawer: false, //verifica se o menu lateral ou fechado
@@ -183,10 +188,11 @@ export default {
     handleScroll() {
       this.elevation = window.scrollY > 0 ? 3 : 0; //cria o efeito de rolagem
     },
+    //metodo para realizar o logout
     logout() {
-      localStorage.removeItem("isAuth");
+      localStorage.removeItem("isAuth"); //remove do local estorage de autenticação
       localStorage.removeItem("cachedCart");
-      this.$router.push("/");
+      this.$router.push("/"); //apos remoção leva o usuario a tela de login
     },
   },
 };

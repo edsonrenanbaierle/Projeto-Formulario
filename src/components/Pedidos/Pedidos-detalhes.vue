@@ -1,4 +1,5 @@
 <!-- eslint-disable vue/valid-v-slot -->
+<!-- tabela de datalhes dos pedidos -->
 <template>
   <v-dialog
     v-model="$pedidos_controller.openDetails"
@@ -10,6 +11,7 @@
         <v-icon class="btn-close" size="30" @click="closeModal"
           >mdi-close</v-icon
         >
+        <!--tabela dos detalhes do pedidos que pucha as informações da pasta controllers -->
         <v-data-table
           :headers="headersPedidoDetalhe"
           :items="$pedidos_controller.pedidos_detalhes"
@@ -56,10 +58,11 @@ export default {
   name: "pedidosDetalhes", //nome da pasta
   mixins: [PedidosMixins],
   methods: {
+    //metodo de fechar modal
     closeModal() {
       this.$pedidos_controller.openDetails =
-        !this.$pedidos_controller.openDetails;
-      this.$pedidos_controller.pedidos_detalhes = [];
+        !this.$pedidos_controller.openDetails; //recebe o contrario do que está na pasta controller
+      this.$pedidos_controller.pedidos_detalhes = []; //faz os detalhes do pedido ficar vazio
     },
   },
 };

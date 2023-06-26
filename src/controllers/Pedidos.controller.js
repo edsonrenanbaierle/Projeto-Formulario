@@ -8,7 +8,7 @@ import {
   buscarPedidosDetalhes,
 } from "@/api/pedidoApi";
 
-//criação de uma nova instancia que pode ser utilizada no código vue prototype.$pedidos_controller
+//criação de uma nova instancia que pode ser utilizada no código em qualquer parte vue prototype.$pedidos_controller
 Vue.prototype.$pedidos_controller = new Vue({
   data() {
     return {

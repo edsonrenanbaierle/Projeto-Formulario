@@ -1,3 +1,4 @@
+// importação de bibliotecas entre outros
 import Vue from "vue";
 import App from "./App.vue";
 import Fragment from "vue-fragment";

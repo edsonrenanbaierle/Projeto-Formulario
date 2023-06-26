@@ -1,3 +1,4 @@
+<!-- modal de delete de pedidos -->
 <template>
   <v-dialog
     v-model="$pedidos_controller.openDelete"

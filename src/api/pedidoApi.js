@@ -15,9 +15,10 @@ export function buscarPedidoPorId(pedidoId) {
   const url = `${baseUrl}/pedidos/${pedidoId}`; //cria a url para buscar o pedido através do id
   return axios.get(url); //realizada a requisição a partir da url e retorna uma promise
 }
+//função que vusca os detalhes do pedido
 export function buscarPedidosDetalhes() {
-  const url = `${baseUrl}/pedidos/detalhes`;
-  return axios.get(url);
+  const url = `${baseUrl}/pedidos/detalhes`; //criação da url
+  return axios.get(url); //realizada a requisição
 }
 
 //função no qual adiciona pedido recebendo como parametro os dados do pedido
